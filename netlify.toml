@@ -1,0 +1,8 @@
+# Netlify: build the static site in web/ and publish web/dist. The data the app loads is committed in web/public/data.
+[build]
+  base = "web"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"

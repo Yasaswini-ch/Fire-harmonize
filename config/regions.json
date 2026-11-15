@@ -1,0 +1,28 @@
+{
+  "_note": "bbox is [west, south, east, north] in degrees. Boxes can be tightened if download time is too long. countries are the NASA FIRMS country-file names used by pipeline/01b_fetch_country.py.",
+  "western_na": {
+    "name": "Western North America",
+    "bbox": [
+      -126,
+      32,
+      -112,
+      52
+    ],
+    "countries": [
+      "United_States",
+      "Canada"
+    ]
+  },
+  "zambia": {
+    "name": "Zambia",
+    "bbox": [
+      22,
+      -18,
+      34,
+      -8
+    ],
+    "countries": [
+      "Zambia"
+    ]
+  }
+}

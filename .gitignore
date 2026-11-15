@@ -1,0 +1,8 @@
+_old/
+data/raw/
+data/interim/
+.env
+node_modules/
+dist/
+__pycache__/
+dev.log
