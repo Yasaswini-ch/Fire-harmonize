@@ -272,3 +272,15 @@ details.fold[open] > summary { margin-bottom: 10px; }
   .more-body { padding-left: 14px; padding-right: 14px; }
 }
 .cal-card .panel { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
+
+/* ---- compare two areas ---- */
+.compare-page { display: flex; flex-direction: column; gap: 20px; width: 100%; }
+.compare-pick { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 48px; }
+.compare-pick h3 { display: flex; align-items: center; gap: 8px; margin: 0 0 6px; }
+.dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; }
+.dot.a { background: #f0b84a; }
+.dot.b { background: #57e3ff; }
+.compare-table th, .compare-table td { vertical-align: top; }
+.compare-table tbody th { text-align: left; font-weight: 600; white-space: nowrap; }
+@media (max-width: 900px) { .compare-pick { grid-template-columns: 1fr; } }
+.compare-table th, .compare-table td { text-align: left; }

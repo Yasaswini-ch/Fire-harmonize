@@ -3,6 +3,7 @@ import Analytics from "./components/Analytics.jsx";
 import { ExportProvider } from "./components/ExportRegistry.jsx";
 import LeftColumn from "./components/LeftColumn.jsx";
 import MoreSections from "./components/MoreSections.jsx";
+import ComparePage from "./components/ComparePage.jsx";
 import PageHeader from "./components/PageHeader.jsx";
 import { OfflineBanner } from "./components/OfflineControls.jsx";
 import Landing from "./components/Landing.jsx";
@@ -122,7 +123,7 @@ function Root({ regions, meta }) {
 
 function Explorer({ regions, meta, onHome, initialTour }) {
   const [tourOpen, setTourOpen] = useState(false);
-  const [page, setPage] = useState("workbench"); // "workbench" or "results"
+  const [page, setPage] = useState("workbench"); // "workbench", "results" or "compare"
   const [mapPick, setMapPick] = useState(null); // { regionId, month }: a month chosen with the map slider
   // From the landing page the tour waits a moment so the data panels exist before it looks for them.
   useEffect(() => {
@@ -227,7 +228,9 @@ function Explorer({ regions, meta, onHome, initialTour }) {
         {active && cells.status === "loading" && <p className="status" role="status">Loading cells_{active.region.id}.json…</p>}
         {active && cells.status === "error" && <p className="notice error field-error" role="alert">{cells.message}</p>}
 
-        {dataReady ? (
+        {dataReady && page === "compare" && cells.status === "ready" ? (
+          <ComparePage key={active.region.id} region={active.region} cellsData={cells.data} aoiA={active.aoi} start={state.start} end={state.end} />
+        ) : dataReady ? (
           <ExportProvider>
             <Analytics
               key={active.region.id} fullSeries={series} rangeRows={inRange} context={context} left={left}

@@ -1,5 +1,5 @@
-// The two pages of the workbench, switched with tabs under the header: the calendar and map, and the results in words.
-const PAGES = [["workbench", "Calendar and map"], ["results", "Results and method"]];
+// The two pages of the workbench, switched with tabs under the header: the calendar and map, the results in words, and two areas side by side.
+const PAGES = [["workbench", "Calendar and map"], ["results", "Results and method"], ["compare", "Compare areas"]];
 
 export default function PageTabs({ page, onPage }) {
   return (
