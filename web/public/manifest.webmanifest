@@ -1,0 +1,11 @@
+{
+  "name": "Burning Activity Calendar",
+  "short_name": "Fire calendar",
+  "description": "MODIS and VIIRS active-fire detections from NASA FIRMS, harmonized into one monthly series. Works offline once saved.",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#070b14",
+  "theme_color": "#070b14",
+  "icons": [{ "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}
