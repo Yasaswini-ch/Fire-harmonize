@@ -16,6 +16,8 @@ export const TOUR_STEPS = [
     body: "The latest month against the median of the same calendar month in the baseline years you choose, with its percentile." },
   { selector: '[aria-label="Results at a glance"]', view: "results", title: "Results in plain words",
     body: "What we did, what it shows for the area you chose, and how to read each graph. Every number here is computed from the data on screen." },
+  { selector: '[aria-label="Choose the two areas"]', view: "compare", title: "Compare two areas",
+    body: "Area A is the area you chose. Type the corners of an Area B inside the same region to see both side by side: totals with ranges, fire seasons, and whether the two areas burn in the same years." },
   { selector: '[data-details="export"]', opens: '[data-details="export"]', title: "Take it with you",
     body: "Download the numbers as CSV, any chart as an image, or get the PDF report with the key figures and the limits of the data." },
 ];

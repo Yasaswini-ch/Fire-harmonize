@@ -13,8 +13,10 @@ want the plain-language version on screen, open the "Results and method" tab und
 **0:35 to 1:05, the calendar.** Scroll to the calendar. "Years across, months down. Diagonal lines are MODIS estimates, the white
 line is where VIIRS observations begin, pink outlines are the five highest months." Hover a hatched cell to show its range.
 
-**1:05 to 1:25, your own area.** In "Area and dates" click Draw rectangle and draw a small box on the map. Drag the month slider.
+**1:05 to 1:15, your own area.** In "Area and dates" click Draw rectangle and draw a small box on the map. Drag the month slider.
 "Any area inside a processed region works. The range gets wider for small areas, and the page says so."
+
+**1:15 to 1:25, compare.** Open the "Compare areas" tab. Type a second box inside the region and press Compare. "Do these two places burn in the same years? The page gives a correlation and says what it means, with the same ranges on every estimate." Press Copy link to this view in Area and dates if there is time.
 
 **1:25 to 1:50, trust.** Open Accuracy and methods. "We tested it by leaving each year out: about 11 percent error region-wide
 and about 18 to 21 percent for small areas in Zambia. In Western North America small areas are much noisier, and we show that

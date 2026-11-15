@@ -32,8 +32,11 @@ A region is one entry in `config/regions.json`; the app works for any area drawn
   calendar month over the baseline years.
 - **Fire season, seasonal profile and annual anomalies** against a baseline the user can change.
 - **Map and 3D globe** of detections by month.
+- **Compare areas tab**: two areas of the same region side by side: totals with ranges, fire seasons, latest month against normal,
+  seasonal shape, annual anomalies, and whether the two areas tend to burn in the same years.
 - **Results and method tab**: a plain-language summary, a guide to reading each graph, and how the numbers are made.
 - **Accuracy and methods**: measured error by area size, model comparison and limitations, read from the pipeline's validation.
+- **Shareable view**: a button copies a link that reopens the same region, area and dates.
 - **Exports**: CSV (harmonized monthly counts and gridded cells), chart images, and a PDF report per region.
 - **Accessibility**: keyboard-navigable calendar with text labels on every cell, minimum 14 px text, 44 px controls, an audible
   version of the calendar, and a guided walkthrough.
