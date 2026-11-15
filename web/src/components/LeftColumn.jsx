@@ -1,4 +1,5 @@
 import { lazy, Suspense, useRef, useState } from "react";
+import CopyLinkButton from "./CopyLinkButton.jsx";
 import { aoiSummary } from "../lib/aoiSummary.js";
 import AoiForm from "./AoiForm.jsx";
 import DateRange from "./DateRange.jsx";
@@ -34,6 +35,7 @@ export default function LeftColumn({
           <button type="button" className="ghost" onClick={() => draw("rectangle")}>Draw rectangle</button>
           <button type="button" className="ghost" onClick={() => draw("polygon")}>Draw polygon</button>
           <button type="button" className="ghost" onClick={onFullRegion} disabled={!region}>Full region</button>
+          <CopyLinkButton />
         </div>
         <p className="hint">{aoiSummary(state.aoi)}</p>
         <AoiForm key={JSON.stringify(state.aoi)} aoi={state.aoi} onApply={onApplyAoi} />

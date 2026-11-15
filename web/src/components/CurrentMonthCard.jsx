@@ -17,6 +17,11 @@ export default function CurrentMonthCard({ comparison: c, children }) {
             <span className="tag">{c.label.toUpperCase()}</span> baseline
             {c.percentDiff !== null && <> ({fmtPct(c.percentDiff)})</>}
           </p>
+          <p>
+            {c.yearsBelow === 0 ? `Lower than every one of the ${c.baselineYears} baseline ${calMonth}s.`
+              : c.yearsBelow === c.baselineYears ? `Higher than every one of the ${c.baselineYears} baseline ${calMonth}s.`
+              : `Higher than ${c.yearsBelow} of the ${c.baselineYears} baseline ${calMonth}s.`}
+          </p>
           <dl className="summary">
             <dt>Detections</dt><dd>{fmt(c.count)}</dd>
             {c.source === "modis_estimated" && <><dt>Estimated range</dt><dd>{fmt(c.lo)} to {fmt(c.hi)}</dd></>}

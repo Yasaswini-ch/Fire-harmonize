@@ -56,7 +56,7 @@ describe("currentMonthComparison", () => {
   const baseline = monthlyMedianBaseline(series, 2001, 2005); // July: [20, 40, 40, 60]
   it("compares the latest month with the median of the same calendar month", () => {
     const c = currentMonthComparison(upTo(series, "2005-07"), baseline); // July 2005 = 120
-    expect(c).toMatchObject({ month: "2005-07", count: 120, baselineMedian: 40, baselineYears: 4, ratio: 3, percentDiff: 200, percentile: 100, label: "well above" });
+    expect(c).toMatchObject({ month: "2005-07", count: 120, baselineMedian: 40, baselineYears: 4, ratio: 3, percentDiff: 200, percentile: 100, label: "well above", yearsBelow: 4 });
   });
   it("maps percentile rank to labels at the 10, 35, 65 and 90 thresholds", () => {
     const at = (count) => currentMonthComparison([row("2005-07", count)], baseline);

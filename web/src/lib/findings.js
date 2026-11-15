@@ -44,11 +44,15 @@ export function buildFindings({ rows, comparison, season, anomaly, accuracy }) {
   const c = comparison;
   if (c && c.label !== null) {
     const calMonth = MONTH_NAMES[Number(c.month.slice(5, 7)) - 1];
+    const rank = c.yearsBelow == null ? ""
+      : c.yearsBelow === 0 ? ` That is lower than every one of the ${c.baselineYears} baseline ${calMonth}s.`
+      : c.yearsBelow === c.baselineYears ? ` That is higher than every one of the ${c.baselineYears} baseline ${calMonth}s.`
+      : ` That is higher than ${c.yearsBelow} of the ${c.baselineYears} baseline ${calMonth}s.`;
     shows.push({
       label: "Now vs normal",
       text: c.percentDiff === null
         ? `${monthLabel(c.month)} has ${fmt(c.count)} detections; the ${calMonth} median is 0, so there is no percentage.`
-        : `${monthLabel(c.month)} has ${fmt(c.count)} detections, ${fmtPct(c.percentDiff)} against the median for ${calMonth}${c.provisional ? " (provisional)" : ""}.`,
+        : `${monthLabel(c.month)} has ${fmt(c.count)} detections, ${fmtPct(c.percentDiff)} against the median for ${calMonth}${c.provisional ? " (provisional)" : ""}.${rank}`,
     });
   }
   const pm = topMonths(rows, 1)[0];

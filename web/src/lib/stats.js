@@ -51,12 +51,13 @@ export function currentMonthComparison(series, baseline) {
   const out = {
     month: latest.month, count: latest.count, lo: latest.lo, hi: latest.hi,
     source: latest.source, provisional: latest.provisional,
-    baselineMedian: b.median, baselineYears: b.n,
+    baselineMedian: b.median, baselineYears: b.n, yearsBelow: null,
     ratio: null, percentDiff: null, percentDiffLo: null, percentDiffHi: null, percentile: null, label: null,
   };
   if (b.n === 0) return out;
   const below = b.values.filter((v) => v < latest.count).length;
   const equal = b.values.filter((v) => v === latest.count).length;
+  out.yearsBelow = below; // baseline years with fewer detections than this month
   out.percentile = (100 * (below + equal / 2)) / b.n;
   out.label = percentileLabel(out.percentile);
   if (b.median > 0) {
