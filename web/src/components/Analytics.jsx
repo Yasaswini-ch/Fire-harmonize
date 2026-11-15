@@ -7,6 +7,7 @@ import ResultsPage from "./ResultsPage.jsx";
 import SeasonalProfile from "./SeasonalProfile.jsx";
 import StatCard from "./StatCard.jsx";
 import { accuracyOf } from "../lib/accuracy.js";
+import { falseJumpOf } from "../lib/falseJump.js";
 import {
   annualTotals, anomalyZ, baselineYearCount, currentMonthComparison, fireSeasonWindow, monthlyMedianBaseline, yearOf,
 } from "../lib/stats.js";
@@ -47,8 +48,9 @@ export default function Analytics({ fullSeries, rangeRows, context, left = null,
 
   if (page === "results") {
     return (
-      <ResultsPage regionName={context.regionName} rows={rangeRows} comparison={comparison} season={season} anomaly={anomaly}
-        accuracy={meta && regionId ? accuracyOf(meta, regionId) : null} onTour={onTour} onBack={() => onPage("workbench")} />
+      <ResultsPage regionId={regionId} regionName={context.regionName} rows={rangeRows} comparison={comparison} season={season} anomaly={anomaly}
+        accuracy={meta && regionId ? accuracyOf(meta, regionId) : null} jump={meta && regionId ? falseJumpOf(meta, regionId) : null}
+        onTour={onTour} onBack={() => onPage("workbench")} />
     );
   }
 

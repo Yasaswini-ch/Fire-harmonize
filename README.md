@@ -94,6 +94,33 @@ so its percentage errors stay above the 30 percent target for every area size ex
 For small areas the percentage swings widely; weighted by total detections the error is 9 to 24 percent. Interval coverage on held-out
 years is 76 to 81 percent against an 80 percent target.
 
+### How it was trained and tested
+
+The *Results and method* tab also opens with an interactive chart of the false jump: the raw MODIS and VIIRS counts spliced
+as they are, against the harmonized series. In the whole-region record, the 12 months from February 2012 hold 5.4 times the
+detections of the 12 months before in the raw splice for Zambia (19.6 times for Western North America), and 1.0 times
+(2.7 times) after harmonizing; what is left is real year-to-year change plus the uncertainty of the estimated months.
+
+The pipeline draws the pictures below in the same run as the numbers above; they are also shown in the app on that tab.
+Orange is MODIS-estimated, blue and green are VIIRS, pink is provisional. In the second picture, the left plot compares each
+month with a prediction made by a model that never saw that year.
+
+**Zambia**
+
+1. The problem: raw counts from the two satellites. VIIRS starts in 2012 and counts far more, so adding the two would create a
+   false jump.
+   ![Zambia raw monthly totals from MODIS and VIIRS](web/public/figures/zambia_raw.png)
+2. The fix, tested by leaving each year out (left), and the harmonized series with its range (right).
+   ![Zambia leave-one-year-out validation and harmonized series](web/public/figures/zambia_validation.png)
+3. Does it hold up over time? Error by year, including the model applied after 2021 (diagnostic only).
+   ![Zambia error and bias by year](web/public/figures/zambia_drift.png)
+
+**Western North America** (the harder case: far fewer detections per area, so small areas stay above the 30 percent target)
+
+![Western North America raw monthly totals from MODIS and VIIRS](web/public/figures/western_na_raw.png)
+![Western North America leave-one-year-out validation and harmonized series](web/public/figures/western_na_validation.png)
+![Western North America error and bias by year](web/public/figures/western_na_drift.png)
+
 ## Limitations
 
 - The MODIS-to-VIIRS relationship is fitted on 2012 to 2021 and assumed to hold for 2002 to 2011. This cannot be checked.

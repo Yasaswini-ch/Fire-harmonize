@@ -3,6 +3,7 @@
 Reads  data/processed/harmonized_cells.parquet, data/processed/validation.json,
        data/interim/prepare_report.json, data/raw/availability.csv, config/regions.json
 Writes web/public/data/regions.json, cells_{region}.json, meta.json
+       web/public/figures/{region}_{raw,validation,drift}.png (copied from data/interim and data/processed)
 
 cells_{region}.json: {"months": [...], "firstViirsIndex": n, "provisionalFrom": n,
                       "cells": [{"lat", "lon", "v": [...]}]}
@@ -14,6 +15,7 @@ Run:  python pipeline/04_export.py
 """
 import hashlib
 import json
+import shutil
 from datetime import date
 
 import numpy as np
@@ -23,6 +25,11 @@ import pyarrow.parquet as pq
 from common import INTERIM, PROCESSED, RAW, ROOT, load_regions
 
 OUT = ROOT / "web" / "public" / "data"
+FIGURES = ROOT / "web" / "public" / "figures"
+# Figures the pipeline already draws, shown in the app (Results and method tab) and in the README: where each comes from
+FIGURE_SOURCES = {"raw": lambda r: INTERIM / f"qa_{r}_raw_monthly.png",
+                  "validation": lambda r: PROCESSED / f"validation_{r}.png",
+                  "drift": lambda r: PROCESSED / f"drift_{r}.png"}
 TARGET_BYTES = 15_000_000
 THRESHOLDS = [0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000]  # min total detections a cell needs to be kept
 CELL_SIZE = 0.25
@@ -252,6 +259,34 @@ def mask_validation(prep):
     return prep.get("static_mask_validation")
 
 
+def raw_vs_harmonized(h, months, first_viirs):
+    """Region monthly totals for the "false jump" chart. `raw` is what a plain splice of the unharmonized counts shows:
+    Aqua MODIS before the first VIIRS month, VIIRS (unscaled) from then on. `harmonized` is the exported series, with the
+    range of its estimated months. Whole region only: the per-cell raw counts are not exported, so this cannot follow a
+    drawn area."""
+    g = h.groupby("month").agg(harmonized=("harmonized", "sum"), lo=("lo", "sum"), hi=("hi", "sum"),
+                               modis=("modis_count", "sum"), viirs=("viirs_count", "sum")).reindex(months)
+    if g.isna().any().any():
+        raise SystemExit("raw_vs_harmonized: a month is missing from the harmonized table.")
+    raw = np.where(np.arange(len(months)) < first_viirs, g["modis"], g["viirs"])
+    return {"months": [month_str(m) for m in months], "firstViirsIndex": int(first_viirs),
+            "raw": [int(round(v)) for v in raw], "harmonized": g["harmonized"].round(1).tolist(),
+            "lo": g["lo"].round(1).tolist(), "hi": g["hi"].round(1).tolist(),
+            "rawNote": "Aqua MODIS counts before the first VIIRS month and Suomi NPP / NOAA-20 VIIRS counts from then on, "
+                       "unscaled. Whole region."}
+
+
+def copy_figures(region_ids):
+    """Copy the raw-totals, validation and drift pictures of every region to web/public/figures/{region}_{kind}.png,
+    so the site and the README show exactly the pictures of the run that produced the numbers."""
+    FIGURES.mkdir(parents=True, exist_ok=True)
+    for region in region_ids:
+        for kind, source in FIGURE_SOURCES.items():
+            src = load(source(region), "run 02_prepare.py and 03_harmonize.py")
+            shutil.copyfile(src, FIGURES / f"{region}_{kind}.png")
+    print(f"\nfigures: copied {len(FIGURE_SOURCES) * len(region_ids)} pictures to {FIGURES}")
+
+
 # ---------------------------------------------------------------- main
 
 def main():
@@ -310,7 +345,10 @@ def main():
         "staticMaskValidation": mask_validation(prep),
         "regions": {r: region_meta(r, val[r], prep) for r in info},
     }
+    for r, i in info.items():
+        meta["regions"][r]["rawVsHarmonized"] = raw_vs_harmonized(harm[harm["region"] == r], i["months"], i["fv"])
     (OUT / "meta.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
+    copy_figures(list(info))
 
     print("\nfile sizes:")
     total_bytes = 0

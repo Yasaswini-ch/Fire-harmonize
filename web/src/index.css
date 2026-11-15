@@ -216,6 +216,16 @@ details.fold[open] > summary { margin-bottom: 10px; }
 .rcard-acc { font-size: 0.875rem; padding-left: 10px; border-left: 3px solid; margin: 8px 0 16px; }
 .rcard-acc.ok { border-color: var(--ok); }
 .rcard-acc.warn { border-color: var(--warn); }
+.false-jump h2 { font-size: 1.25rem; }
+.legend-row { display: flex; flex-wrap: wrap; gap: 6px 24px; font-size: 0.9375rem; color: var(--muted); margin: 8px 0; }
+.legend-row .swatch { display: inline-block; width: 22px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+.legend-row .swatch.dashed { height: 0; border-top: 3px dashed; border-radius: 0; }
+.figures h2 { font-size: 1.25rem; margin-bottom: 4px; }
+.figure-card { margin: 20px 0 0; }
+.figure-card h3 { font-size: 1.0625rem; margin: 0 0 8px; }
+.figure-card a { display: block; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #fff; }
+.figure-card img { display: block; width: 100%; height: auto; }
+.figure-card figcaption { font-size: 0.9375rem; color: var(--muted); margin-top: 8px; max-width: 75ch; }
 .methods-body .limits { margin: 0; padding-left: 22px; }
 .limits li { margin: 6px 0; }
 .nested summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; }
