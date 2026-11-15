@@ -1,0 +1,77 @@
+/* The opening page. Centred "horizon" composition: headline at the top, the globe rising from the bottom edge, the region
+   cards across the bottom. This is the one place with motion (the fly-in and the entrance), and it respects
+   prefers-reduced-motion. Small text is never below 14px. */
+.landing-root { display: flex; flex-direction: column; height: 100dvh; overflow: hidden; background: #05080f; color: #eef2f8; }
+.landing-root .synthetic-banner, .landing-root .offline-banner { position: static; margin: 0; flex: none; }
+.landing { position: relative; flex: 1; min-height: 0; display: flex; overflow: hidden; color: #eef2f8;
+  background: radial-gradient(ellipse at 50% 118%, #1f3029 0%, #0d0f0e 64%); }
+.gl-wrap { position: absolute; inset: 0; }
+.gl-wrap canvas { width: 100%; height: 100%; display: block; }
+.gl-tip { position: absolute; pointer-events: none; padding: 4px 10px; border-radius: 6px; font-size: 0.875rem; background: rgba(8, 12, 22, 0.9); border: 1px solid rgba(233, 180, 76, 0.7); }
+
+.landing-copy { position: relative; z-index: 2; min-height: 0; overflow-y: auto; width: 100%; display: flex; flex-direction: column; align-items: center;
+  justify-content: flex-start; gap: 18px; padding: 26px 40px 20px; text-align: center; pointer-events: none; }
+.landing-copy > * { pointer-events: auto; }
+.landing-copy .brand { align-self: flex-start; }
+.brand { display: flex; align-items: center; gap: 10px; min-width: 0; text-align: left; }
+.brand svg { flex: none; }
+.brand-name { font-family: var(--font-serif); font-size: 1.1rem; }
+.brand-sub { color: #aab2c0; font-size: 0.875rem; }
+
+.hero { display: flex; flex-direction: column; align-items: center; gap: 12px; max-width: 940px; width: 100%; }
+.hero-low { margin-top: auto; max-width: 1180px; }
+.eyebrow { font-size: 0.875rem; letter-spacing: 0.14em; text-transform: uppercase; color: #aab2c0; }
+.hero-title { font-family: var(--font-serif); font-size: clamp(2.1rem, 4.8vw, 3.6rem); line-height: 1.08; margin: 0; font-weight: 700; letter-spacing: -0.01em; }
+.hero-sub { color: #c9d0dc; margin: 0 auto 6px; font-size: 1.05rem; max-width: 60ch; }
+
+.rcards { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 10px; width: 100%; }
+.rcard { all: unset; box-sizing: border-box; cursor: pointer; display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; border-radius: 8px; width: min(400px, 100%); text-align: left;
+  background: rgba(12, 18, 30, 0.72); border: 1px solid rgba(150, 170, 210, 0.26); backdrop-filter: blur(8px); }
+.rcard:hover, .rcard.on, .rcard:focus-visible { border-color: #e9b44c; background: rgba(20, 28, 46, 0.85); }
+.rcard:focus-visible { outline: 2px solid #eef2f8; outline-offset: 2px; }
+.rcard-top { display: flex; justify-content: space-between; align-items: center; }
+.rcard-meta { font-size: 0.875rem; color: #aab2c0; }
+.rcard-acc { font-size: 0.875rem; line-height: 1.35; padding-left: 8px; border-left: 3px solid; }
+.rcard-acc.ok { border-color: #5fd394; color: #b8ecd0; }
+.rcard-acc.warn { border-color: #f5b23a; color: #f7d9a0; }
+.yearbar { display: flex; gap: 2px; }
+.yearbar i, .key i { display: inline-block; flex: 1; height: 8px; min-width: 3px; border-radius: 1px; }
+.key { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 16px; font-size: 0.875rem; color: #c9d0dc; }
+.key i { flex: none; width: 14px; margin-right: 6px; vertical-align: middle; }
+.yearbar .native, .key .native { background: #eef2f8; }
+.yearbar .est, .key .est { background: repeating-linear-gradient(45deg, #f5b23a 0 2px, transparent 2px 4px); border: 1px solid #f5b23a; }
+.yearbar .prov, .key .prov { background: radial-gradient(circle, #eef2f8 30%, transparent 32%) 0 0 / 4px 4px; border: 1px solid #eef2f8; }
+
+.cta-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.cta { min-height: 44px; padding: 0 22px; font-size: 1rem; font-weight: 600; cursor: pointer; border-radius: 6px; background: #eef2f8; color: #0b111c; border: 1px solid #eef2f8; font-family: inherit; }
+.cta.ghost-cta { background: transparent; color: #eef2f8; border-color: rgba(238, 242, 248, 0.45); }
+.landing-foot { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 0.875rem; color: #aab2c0; text-align: center; }
+.orbit-key { display: flex; align-items: center; gap: 6px; }
+.orbit-key i { display: inline-block; width: 18px; height: 0; border-top: 2px dashed; margin-left: 8px; }
+.orbit-key .amber { border-color: #f5b23a; margin-left: 0; }
+.orbit-key .cyan { border-color: #57e3ff; }
+
+.landing.leaving { pointer-events: none; }
+.landing.leaving .gl-wrap canvas { cursor: default; }
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+  .landing-copy { transition: opacity 700ms, transform 700ms; }
+  .landing.leaving .landing-copy { opacity: 0; transform: translateY(-24px); }
+  .landing::after { content: ""; position: absolute; inset: 0; z-index: 3; background: #0e1014; opacity: 0; pointer-events: none; }
+  .landing.leaving::after { animation: fade 450ms 1250ms both; }
+  .landing-copy .brand, .hero > * { animation: rise 640ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  .hero > :nth-child(2) { animation-delay: 80ms; }
+  .hero > :nth-child(3) { animation-delay: 160ms; }
+  .hero > :nth-child(4) { animation-delay: 240ms; }
+  .hero > :nth-child(5) { animation-delay: 320ms; }
+  .hero > :nth-child(6) { animation-delay: 400ms; }
+  .landing-foot { animation: fade 900ms 600ms both; }
+  .rcard { transition: transform 180ms, border-color 180ms, background-color 180ms; }
+  .rcard:hover, .rcard.on { transform: translateY(-3px); }
+  .cta { transition: transform 180ms; }
+  .cta:hover { transform: translateY(-2px); }
+  .yearbar i { animation: fade 500ms both; }
+}
+@media (max-width: 900px) { .landing-copy { padding: 16px; } .hero-title { font-size: 2rem; } }
