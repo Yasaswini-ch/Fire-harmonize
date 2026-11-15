@@ -1,0 +1,766 @@
+{
+  "synthetic": false,
+  "dataVersion": "2026-11-15-c44dbdd7",
+  "generated": "2026-11-15",
+  "methodsSummary": "Fire detections come from NASA FIRMS: the MODIS instrument on the Aqua satellite (from 2002) and the 375 m VIIRS instruments on Suomi NPP (used through 2026-07-31) and NOAA-20. Only detections classed as presumed vegetation fires are counted, low-confidence detections are dropped, and the rest are summed into 0.25 degree cells by calendar month. VIIRS has smaller pixels and detects many more fires than MODIS, so MODIS counts are converted to VIIRS-equivalent counts with a statistical model fitted on the 2012 to 2021 overlap of the two sensors and tested by leaving each year out in turn. That relationship is assumed to hold for 2002 to 2011, which cannot be checked and is the main limit of the early record; Aqua's overpass has drifted later since 2021 to 2022, so the model is not used after 2021. Months before February 2012 are therefore model estimates and are shown with an empirical range (the 10th to 90th percentile of past errors on held-out years), which is not a formal confidence interval. From February 2012 the series uses Suomi NPP counts directly, and months after Suomi NPP ended (2026-07-31) come from NOAA-20, compared with Suomi NPP over the months both flew (the ratio and whether any scaling was applied are listed per region). The most recent months use near-real-time NOAA-20 data, are marked provisional and may change when standard processing replaces them; static sources such as gas flares are removed from them using a mask built from standard-processing files. Harmonized values are model estimates, not observations.",
+  "snpp": {
+    "lastDateUsedInSeries": "2026-07-31",
+    "lastNrtDateAvailable": "2026-11-02",
+    "note": "Suomi NPP stopped delivering new data on 2026-11-02 (FIRMS FAQ); later months come from NOAA-20"
+  },
+  "sourceProducts": [
+    {
+      "firmsSource": "MODIS_SP",
+      "role": "Aqua only; estimated VIIRS-equivalent counts before February 2012"
+    },
+    {
+      "firmsSource": "VIIRS_SNPP_SP",
+      "role": "VIIRS 375 m reference series (Suomi NPP), standard processing"
+    },
+    {
+      "firmsSource": "VIIRS_NOAA20_SP",
+      "role": "VIIRS 375 m (NOAA-20), standard processing; used after Suomi NPP ended"
+    },
+    {
+      "firmsSource": "VIIRS_NOAA20_NRT",
+      "role": "VIIRS 375 m (NOAA-20), near real time; provisional months"
+    }
+  ],
+  "filters": {
+    "type_kept": 0,
+    "modis_min_confidence": 30,
+    "viirs_dropped_confidence": [
+      "l"
+    ],
+    "modis_platforms_kept": [
+      "aqua"
+    ],
+    "cell_deg": 0.25,
+    "static_mask_round_deg": 0.005
+  },
+  "platformNote": "Aqua kept (NASA gives Aqua about 13:30 mean local time and Terra about 10:30; the VIIRS satellites fly a similar afternoon schedule). Aqua's overpass has been drifting later since 2021: its last orbit-maintenance maneuver was on 1 December 2021, and NASA's pages date the start of the drift between July 2021 and January 2022.",
+  "staticMaskValidation": {
+    "regions": {
+      "western_na": {
+        "mask_source_rows": 1331794,
+        "mask_source_static_rows": 66136,
+        "mask_locations_exact": 1351,
+        "mask_locations_3x3": 7483,
+        "test_rows": 1495251,
+        "test_months": 84,
+        "test_static_share_pct": 4.96,
+        "static_rows_as_pct_of_true_vegetation_rows": 5.222,
+        "exact": {
+          "recall_pct": 92.02,
+          "false_drop_pct": 0.303,
+          "static_rows_removed": 68285,
+          "static_rows_total": 74209,
+          "veg_rows_falsely_removed": 4308,
+          "veg_rows_total": 1421042,
+          "recall_by_type_pct": {
+            "2": 94.7,
+            "3": 14.5
+          },
+          "net_monthly_bias_pct": {
+            "median": -0.062,
+            "min": -2.423,
+            "max": 2.89
+          }
+        },
+        "neighbourhood_3x3": {
+          "recall_pct": 93.43,
+          "false_drop_pct": 0.4,
+          "static_rows_removed": 69331,
+          "static_rows_total": 74209,
+          "veg_rows_falsely_removed": 5683,
+          "veg_rows_total": 1421042,
+          "recall_by_type_pct": {
+            "2": 96.0,
+            "3": 17.6
+          },
+          "net_monthly_bias_pct": {
+            "median": -0.456,
+            "min": -3.159,
+            "max": 1.651
+          }
+        }
+      },
+      "zambia": {
+        "mask_source_rows": 6209681,
+        "mask_source_static_rows": 11995,
+        "mask_locations_exact": 2203,
+        "mask_locations_3x3": 10355,
+        "test_rows": 5968755,
+        "test_months": 84,
+        "test_static_share_pct": 0.19,
+        "static_rows_as_pct_of_true_vegetation_rows": 0.19,
+        "exact": {
+          "recall_pct": 81.67,
+          "false_drop_pct": 0.027,
+          "static_rows_removed": 9243,
+          "static_rows_total": 11318,
+          "veg_rows_falsely_removed": 1604,
+          "veg_rows_total": 5957437,
+          "recall_by_type_pct": {
+            "2": 93.2,
+            "3": 32.3
+          },
+          "net_monthly_bias_pct": {
+            "median": 0.009,
+            "min": -5.0,
+            "max": 6.349
+          }
+        },
+        "neighbourhood_3x3": {
+          "recall_pct": 87.8,
+          "false_drop_pct": 0.202,
+          "static_rows_removed": 9937,
+          "static_rows_total": 11318,
+          "veg_rows_falsely_removed": 12043,
+          "veg_rows_total": 5957437,
+          "recall_by_type_pct": {
+            "2": 94.0,
+            "3": 61.4
+          },
+          "net_monthly_bias_pct": {
+            "median": -0.325,
+            "min": -15.038,
+            "max": 1.887
+          }
+        }
+      }
+    },
+    "design": {
+      "mask": "VIIRS_SNPP_SP 2012-2018 yearly country files, rows with type != 0, matched at 0.005 degrees",
+      "test": "VIIRS_NOAA20_SP 2019-2025 yearly country files, treated as if they had no type column",
+      "recall": "share of type != 0 rows the mask removes",
+      "false_drop": "share of type 0 (vegetation fire) rows the mask removes",
+      "net_monthly_bias": "(kept rows that are not low confidence - true type 0 rows that are not low confidence) / true, per month"
+    },
+    "status": "complete",
+    "validated_regions": [
+      "western_na",
+      "zambia"
+    ]
+  },
+  "regions": {
+    "western_na": {
+      "model": {
+        "id": "D",
+        "name": "ratio fitted separately for each calendar month",
+        "params": {
+          "ratios": [
+            5.110419906687403,
+            4.904858987427795,
+            4.947672817405674,
+            5.004541701073493,
+            5.760609911054638,
+            7.016093880972338,
+            8.700345102203345,
+            9.454200440425431,
+            9.398033823978722,
+            6.867488765806249,
+            7.437243785433929,
+            7.161813057773602
+          ],
+          "r": 8.598274427659835
+        },
+        "fitWindow": [
+          "2012-02",
+          "2021-12"
+        ],
+        "cvFolds": 10
+      },
+      "cv": {
+        "chosen": {
+          "cell": {
+            "rmse": 21.72251614217284,
+            "mae": 1.859106669377216,
+            "r2_log1p": 0.5864226824022344
+          },
+          "region": {
+            "mape_pct": 14.418907670578049,
+            "bias_pct": -0.7439937103071671
+          },
+          "aoi": {
+            "median_ape_pct": 45.0674743892829,
+            "bias_pct": -0.5683637841193431,
+            "n_aoi_months": 20813
+          }
+        },
+        "allModels": {
+          "A": {
+            "median_ape_pct": 60.447796340183544,
+            "bias_pct": -1.375849926047978,
+            "n_aoi_months": 20813
+          },
+          "B": {
+            "median_ape_pct": 44.682868181557055,
+            "bias_pct": 51.69630619062313,
+            "n_aoi_months": 20813
+          },
+          "C": {
+            "median_ape_pct": 43.99534909696538,
+            "bias_pct": 43.82757030798733,
+            "n_aoi_months": 20813
+          },
+          "D": {
+            "median_ape_pct": 45.0674743892829,
+            "bias_pct": -0.5683637841193431,
+            "n_aoi_months": 20813
+          }
+        },
+        "byYear": {
+          "2012": {
+            "medianApePct": 48.13365812849092,
+            "biasPct": 6.546873746776528
+          },
+          "2013": {
+            "medianApePct": 50.73126846786913,
+            "biasPct": 12.34994984009113
+          },
+          "2014": {
+            "medianApePct": 49.582400193131996,
+            "biasPct": 8.236222614267417
+          },
+          "2015": {
+            "medianApePct": 43.47842035207916,
+            "biasPct": -4.9703010276886745
+          },
+          "2016": {
+            "medianApePct": 44.64511770341284,
+            "biasPct": 5.597152541791997
+          },
+          "2017": {
+            "medianApePct": 41.65138395494094,
+            "biasPct": 2.555522423257783
+          },
+          "2018": {
+            "medianApePct": 39.59161458387178,
+            "biasPct": 7.5646682353797
+          },
+          "2019": {
+            "medianApePct": 51.71481572559698,
+            "biasPct": 14.413306756226913
+          },
+          "2020": {
+            "medianApePct": 41.68073268317079,
+            "biasPct": -15.11923967427047
+          },
+          "2021": {
+            "medianApePct": 40.59266452240813,
+            "biasPct": -3.745077322871469
+          }
+        },
+        "continuity2012to2013MeanPctDiff": 12.655462914427915,
+        "interval": "empirical 10-90 percentile of actual/predicted over cross-validated AOI-months (200 rectangles of 1-5 deg); not a formal confidence interval"
+      },
+      "warnings": [
+        "AOI median error 45.1% > 30%"
+      ],
+      "modelSelection": {
+        "rule": "Keep the candidate models whose AOI-level bias is within +/-15 percent, then choose the lowest median AOI-level error among them. If none qualifies, choose the lowest absolute bias and warn.",
+        "maxAbsBiasPct": 15.0,
+        "candidates": [
+          {
+            "model": "A",
+            "name": "ratio",
+            "medianApePct": 60.447796340183544,
+            "biasPct": -1.375849926047978,
+            "qualifies": true
+          },
+          {
+            "model": "B",
+            "name": "log1p linear",
+            "medianApePct": 44.682868181557055,
+            "biasPct": 51.69630619062313,
+            "qualifies": false
+          },
+          {
+            "model": "C",
+            "name": "log1p linear + month offset",
+            "medianApePct": 43.99534909696538,
+            "biasPct": 43.82757030798733,
+            "qualifies": false
+          },
+          {
+            "model": "D",
+            "name": "ratio per calendar month",
+            "medianApePct": 45.0674743892829,
+            "biasPct": -0.5683637841193431,
+            "qualifies": true
+          }
+        ],
+        "chosen": "D",
+        "noneQualified": false,
+        "note": "This rule was set after seeing the first cross-validation results, in which the earlier rule (lowest error, simpler model preferred within 5 percent) chose a model with a large bias. It was not fixed in advance, so the reported errors are not those of a pre-registered choice."
+      },
+      "sizeClasses": [
+        {
+          "id": "1-2",
+          "label": "1 to 2 degrees",
+          "minDeg": 1.0,
+          "maxDeg": 2.0,
+          "nAois": 12,
+          "medianApePct": 100.0,
+          "biasPct": 5.819062448481108,
+          "countWeightedErrorPct": 27.34611360820777,
+          "medianActualCountNonzero": 15.0,
+          "medianActualCountAll": 6.0,
+          "nPairs": 1071,
+          "nNonzero": 765,
+          "zeroPredHi": 9.0,
+          "coverage": {
+            "targetPct": 80.0,
+            "heldOutYearsPct": 78.29457364341086,
+            "heldOutYearsPctPredictedPositive": 77.73359840954275,
+            "zeroPredSharePct": 35.42483660130719,
+            "inSamplePct": 78.9405684754522,
+            "n": 774
+          },
+          "pooledMultipliers": false
+        },
+        {
+          "id": "2-3",
+          "label": "2 to 3 degrees",
+          "minDeg": 2.0,
+          "maxDeg": 3.0,
+          "nAois": 32,
+          "medianApePct": 56.41339869281046,
+          "biasPct": -2.4904771890362585,
+          "countWeightedErrorPct": 19.43209616836805,
+          "medianActualCountNonzero": 33.0,
+          "medianActualCountAll": 23.0,
+          "nPairs": 3689,
+          "nNonzero": 3217,
+          "zeroPredHi": 13.0,
+          "coverage": {
+            "targetPct": 80.0,
+            "heldOutYearsPct": 79.91942981096994,
+            "heldOutYearsPctPredictedPositive": 78.27684769293589,
+            "zeroPredSharePct": 24.184022381100405,
+            "inSamplePct": 81.03501704369384,
+            "n": 3227
+          },
+          "pooledMultipliers": false
+        },
+        {
+          "id": "3-5",
+          "label": "3 to 5 degrees",
+          "minDeg": 3.0,
+          "maxDeg": 5.0,
+          "nAois": 156,
+          "medianApePct": 41.987971956426215,
+          "biasPct": -0.4425852659319864,
+          "countWeightedErrorPct": 16.356339955171187,
+          "medianActualCountNonzero": 79.0,
+          "medianActualCountAll": 66.0,
+          "nPairs": 17969,
+          "nNonzero": 16831,
+          "zeroPredHi": 18.0,
+          "coverage": {
+            "targetPct": 80.0,
+            "heldOutYearsPct": 80.66524368552116,
+            "heldOutYearsPctPredictedPositive": 79.50169875424689,
+            "zeroPredSharePct": 16.2676014497059,
+            "inSamplePct": 81.07435076485237,
+            "n": 16866
+          },
+          "pooledMultipliers": false
+        },
+        {
+          "id": "region",
+          "label": "whole region",
+          "minDeg": 20.0,
+          "maxDeg": 20.0,
+          "nAois": 1,
+          "medianApePct": 11.98249481745332,
+          "biasPct": -0.7439937103071671,
+          "countWeightedErrorPct": 10.450249806771943,
+          "medianActualCountNonzero": 3615.0,
+          "medianActualCountAll": 3615.0,
+          "nPairs": 119,
+          "nNonzero": 119,
+          "zeroPredHi": 0.0,
+          "coverage": {
+            "targetPct": 80.0,
+            "heldOutYearsPct": 80.67226890756302,
+            "heldOutYearsPctPredictedPositive": 80.67226890756302,
+            "zeroPredSharePct": 0.0,
+            "inSamplePct": 79.83193277310924,
+            "n": 119
+          },
+          "pooledMultipliers": false
+        }
+      ],
+      "bridgeNoaa20ToSnpp": {
+        "overlap": [
+          "2018-05",
+          "2026-07"
+        ],
+        "aoiMedianRatio": 1.0,
+        "regionMonthlyMedianRatio": 0.9950788882999261,
+        "scalingApplied": false,
+        "scaleFactor": 1.0,
+        "recentMonths": [
+          "2026-02",
+          "2026-07"
+        ],
+        "recentRatioMedian": 1.0050327829188288,
+        "recentOutsideTolerance": false
+      },
+      "driftDiagnostic": {
+        "note": "Aqua's overpass has drifted later since 2021 to 2022; model fitted 2012-2021 applied to later years; diagnostic only",
+        "aoiErrorByYearFromDriftStart": {
+          "2022": {
+            "median_ape_pct": 56.68299543172124,
+            "bias_pct": 1.0299032687857805,
+            "n_aoi_months": 2099
+          },
+          "2023": {
+            "median_ape_pct": 44.032867763604216,
+            "bias_pct": 3.9803696467327714,
+            "n_aoi_months": 2091
+          },
+          "2024": {
+            "median_ape_pct": 42.888669082347974,
+            "bias_pct": 16.02536766062028,
+            "n_aoi_months": 2126
+          },
+          "2025": {
+            "median_ape_pct": 42.04103898916148,
+            "bias_pct": 7.007465669061716,
+            "n_aoi_months": 2145
+          },
+          "2026": {
+            "median_ape_pct": 52.87624595515671,
+            "bias_pct": 0.3374089132014189,
+            "n_aoi_months": 1248
+          }
+        },
+        "cvMedianApeRangePct": [
+          39.59161458387178,
+          51.71481572559698
+        ]
+      },
+      "staticMask": {
+        "sp_viirs_rows": 6706335,
+        "sp_viirs_type_nonzero_rows": 294413,
+        "n_mask_locations": 4390,
+        "nrt_rows_before_mask": 135770,
+        "nrt_rows_dropped_by_mask": 3959,
+        "nrt_dropped_pct": 2.92,
+        "sp_viirs_type_nonzero_pct": 4.39
+      }
+    },
+    "zambia": {
+      "model": {
+        "id": "D",
+        "name": "ratio fitted separately for each calendar month",
+        "params": {
+          "ratios": [
+            14.964285714285714,
+            13.780303030303031,
+            8.214285714285714,
+            6.2777628394729765,
+            5.004026816420704,
+            4.136832028830452,
+            4.513879912304047,
+            5.178650959492814,
+            5.886360907117454,
+            7.854935274086277,
+            14.587145518526185,
+            16.838422391857506
+          ],
+          "r": 5.289613313839226
+        },
+        "fitWindow": [
+          "2012-02",
+          "2021-12"
+        ],
+        "cvFolds": 10
+      },
+      "cv": {
+        "chosen": {
+          "cell": {
+            "rmse": 27.6213897068644,
+            "mae": 9.365088141481404,
+            "r2_log1p": 0.8644816165399029
+          },
+          "region": {
+            "mape_pct": 22.77978460348877,
+            "bias_pct": 0.15833380668408517
+          },
+          "aoi": {
+            "median_ape_pct": 18.533094555843356,
+            "bias_pct": 1.7512275583670127,
+            "n_aoi_months": 21826
+          }
+        },
+        "allModels": {
+          "A": {
+            "median_ape_pct": 33.121271872965494,
+            "bias_pct": 1.553353599531088,
+            "n_aoi_months": 21826
+          },
+          "B": {
+            "median_ape_pct": 51.883305049447635,
+            "bias_pct": 32.31511987366442,
+            "n_aoi_months": 21826
+          },
+          "C": {
+            "median_ape_pct": 38.02469837670667,
+            "bias_pct": 23.88866170733652,
+            "n_aoi_months": 21826
+          },
+          "D": {
+            "median_ape_pct": 18.533094555843356,
+            "bias_pct": 1.7512275583670127,
+            "n_aoi_months": 21826
+          }
+        },
+        "byYear": {
+          "2012": {
+            "medianApePct": 17.58297434253496,
+            "biasPct": 1.9116327198229344
+          },
+          "2013": {
+            "medianApePct": 18.51078520728034,
+            "biasPct": -0.3337181680292184
+          },
+          "2014": {
+            "medianApePct": 17.6937441643324,
+            "biasPct": 6.336956279539732
+          },
+          "2015": {
+            "medianApePct": 18.31548301027571,
+            "biasPct": 6.876656189538758
+          },
+          "2016": {
+            "medianApePct": 15.663629135652752,
+            "biasPct": 3.1717636985193014
+          },
+          "2017": {
+            "medianApePct": 19.775031477615762,
+            "biasPct": 10.093565877584856
+          },
+          "2018": {
+            "medianApePct": 18.724240666400295,
+            "biasPct": 1.90004979849778
+          },
+          "2019": {
+            "medianApePct": 17.48749337397292,
+            "biasPct": -1.0224274977820296
+          },
+          "2020": {
+            "medianApePct": 26.73137040456869,
+            "biasPct": -11.798931110081822
+          },
+          "2021": {
+            "medianApePct": 17.964782566397513,
+            "biasPct": -0.2045127926523103
+          }
+        },
+        "continuity2012to2013MeanPctDiff": -12.925835284831228,
+        "interval": "empirical 10-90 percentile of actual/predicted over cross-validated AOI-months (200 rectangles of 1-5 deg); not a formal confidence interval"
+      },
+      "warnings": [
+        "NOAA-20 / S-NPP ratio over the latest 6 overlap months (2026-02 to 2026-07) is 1.11, outside 0.9 to 1.1: recent S-NPP months may undercount, so the S-NPP to NOAA-20 handover may add a step"
+      ],
+      "modelSelection": {
+        "rule": "Keep the candidate models whose AOI-level bias is within +/-15 percent, then choose the lowest median AOI-level error among them. If none qualifies, choose the lowest absolute bias and warn.",
+        "maxAbsBiasPct": 15.0,
+        "candidates": [
+          {
+            "model": "A",
+            "name": "ratio",
+            "medianApePct": 33.121271872965494,
+            "biasPct": 1.553353599531088,
+            "qualifies": true
+          },
+          {
+            "model": "B",
+            "name": "log1p linear",
+            "medianApePct": 51.883305049447635,
+            "biasPct": 32.31511987366442,
+            "qualifies": false
+          },
+          {
+            "model": "C",
+            "name": "log1p linear + month offset",
+            "medianApePct": 38.02469837670667,
+            "biasPct": 23.88866170733652,
+            "qualifies": false
+          },
+          {
+            "model": "D",
+            "name": "ratio per calendar month",
+            "medianApePct": 18.533094555843356,
+            "biasPct": 1.7512275583670127,
+            "qualifies": true
+          }
+        ],
+        "chosen": "D",
+        "noneQualified": false,
+        "note": "This rule was set after seeing the first cross-validation results, in which the earlier rule (lowest error, simpler model preferred within 5 percent) chose a model with a large bias. It was not fixed in advance, so the reported errors are not those of a pre-registered choice."
+      },
+      "sizeClasses": [
+        {
+          "id": "1-2",
+          "label": "1 to 2 degrees",
+          "minDeg": 1.0,
+          "maxDeg": 2.0,
+          "nAois": 12,
+          "medianApePct": 21.040716237633315,
+          "biasPct": -1.9470123109686002,
+          "countWeightedErrorPct": 13.39939624295231,
+          "medianActualCountNonzero": 691.0,
+          "medianActualCountAll": 133.5,
+          "nPairs": 1428,
+          "nNonzero": 1101,
+          "zeroPredHi": 8.0,
+          "coverage": {
+            "targetPct": 80.0,
+            "heldOutYearsPct": 76.26811594202898,
+            "heldOutYearsPctPredictedPositive": 76.53631284916202,
+            "zeroPredSharePct": 18.982742960944595,
+            "inSamplePct": 77.53623188405797,
+            "n": 1104
+          },
+          "pooledMultipliers": false
+        },
+        {
+          "id": "2-3",
+          "label": "2 to 3 degrees",
+          "minDeg": 2.0,
+          "maxDeg": 3.0,
+          "nAois": 32,
+          "medianApePct": 19.866247807337505,
+          "biasPct": 1.2301565978322195,
+          "countWeightedErrorPct": 12.768795971024392,
+          "medianActualCountNonzero": 991.0,
+          "medianActualCountAll": 260.5,
+          "nPairs": 3808,
+          "nNonzero": 3138,
+          "zeroPredHi": 13.0,
+          "coverage": {
+            "targetPct": 80.0,
+            "heldOutYearsPct": 77.9709228824273,
+            "heldOutYearsPctPredictedPositive": 78.02114803625378,
+            "zeroPredSharePct": 16.44359464627151,
+            "inSamplePct": 79.96207332490518,
+            "n": 3164
+          },
+          "pooledMultipliers": false
+        },
+        {
+          "id": "3-5",
+          "label": "3 to 5 degrees",
+          "minDeg": 3.0,
+          "maxDeg": 5.0,
+          "nAois": 156,
+          "medianApePct": 18.13337194034245,
+          "biasPct": 1.8501148213679353,
+          "countWeightedErrorPct": 11.265675688669072,
+          "medianActualCountNonzero": 1467.0,
+          "medianActualCountAll": 1072.5,
+          "nPairs": 18564,
+          "nNonzero": 17587,
+          "zeroPredHi": 18.0,
+          "coverage": {
+            "targetPct": 80.0,
+            "heldOutYearsPct": 78.8623874001473,
+            "heldOutYearsPctPredictedPositive": 77.87513691128149,
+            "zeroPredSharePct": 12.111218513674874,
+            "inSamplePct": 80.77729307121409,
+            "n": 17651
+          },
+          "pooledMultipliers": false
+        },
+        {
+          "id": "region",
+          "label": "whole region",
+          "minDeg": 12.0,
+          "maxDeg": 12.0,
+          "nAois": 1,
+          "medianApePct": 11.304029283341807,
+          "biasPct": 0.15833380668408517,
+          "countWeightedErrorPct": 7.104397859584831,
+          "medianActualCountNonzero": 15718.0,
+          "medianActualCountAll": 15718.0,
+          "nPairs": 119,
+          "nNonzero": 119,
+          "zeroPredHi": 0.0,
+          "coverage": {
+            "targetPct": 80.0,
+            "heldOutYearsPct": 78.99159663865547,
+            "heldOutYearsPctPredictedPositive": 78.99159663865547,
+            "zeroPredSharePct": 0.0,
+            "inSamplePct": 79.83193277310924,
+            "n": 119
+          },
+          "pooledMultipliers": false
+        }
+      ],
+      "bridgeNoaa20ToSnpp": {
+        "overlap": [
+          "2018-05",
+          "2026-07"
+        ],
+        "aoiMedianRatio": 0.9977152624642807,
+        "regionMonthlyMedianRatio": 0.9917673029476691,
+        "scalingApplied": false,
+        "scaleFactor": 1.0,
+        "recentMonths": [
+          "2026-02",
+          "2026-07"
+        ],
+        "recentRatioMedian": 1.1144996575129211,
+        "recentOutsideTolerance": true
+      },
+      "driftDiagnostic": {
+        "note": "Aqua's overpass has drifted later since 2021 to 2022; model fitted 2012-2021 applied to later years; diagnostic only",
+        "aoiErrorByYearFromDriftStart": {
+          "2022": {
+            "median_ape_pct": 32.037815126050404,
+            "bias_pct": 19.994637770364445,
+            "n_aoi_months": 2215
+          },
+          "2023": {
+            "median_ape_pct": 19.139439840609658,
+            "bias_pct": 5.46208584556498,
+            "n_aoi_months": 2201
+          },
+          "2024": {
+            "median_ape_pct": 22.180451127819545,
+            "bias_pct": 26.93975567421802,
+            "n_aoi_months": 2257
+          },
+          "2025": {
+            "median_ape_pct": 26.397854246733445,
+            "bias_pct": 15.884802180400264,
+            "n_aoi_months": 2170
+          },
+          "2026": {
+            "median_ape_pct": 34.62678721024314,
+            "bias_pct": 5.288981346099145,
+            "n_aoi_months": 1338
+          }
+        },
+        "cvMedianApeRangePct": [
+          15.663629135652752,
+          26.73137040456869
+        ]
+      },
+      "staticMask": {
+        "sp_viirs_rows": 20199639,
+        "sp_viirs_type_nonzero_rows": 41314,
+        "n_mask_locations": 4598,
+        "nrt_rows_before_mask": 934645,
+        "nrt_rows_dropped_by_mask": 2313,
+        "nrt_dropped_pct": 0.25,
+        "sp_viirs_type_nonzero_pct": 0.2
+      }
+    }
+  }
+}
