@@ -31,8 +31,13 @@ import pandas as pd
 
 from common import INTERIM, PROCESSED, load_regions
 
-MODELS = ["A", "B", "C", "D"]  # ordered simplest first; used by choose_model
-MODEL_NAMES = {"A": "ratio", "B": "log1p linear", "C": "log1p linear + month offset", "D": "ratio per calendar month"}
+MODELS = ["A", "B", "C", "D", "E"]  # ordered simplest first; used by choose_model
+NEEDS_BLOCKS = ("E",)  # models that also need each cell's 1 degree block (see block_ids)
+MODEL_NAMES = {"A": "ratio", "B": "log1p linear", "C": "log1p linear + month offset", "D": "ratio per calendar month",
+               "E": "ratio per calendar month and MODIS activity"}
+BLOCK_DEG = 1.0  # model E: cells are grouped into blocks of this size to measure how active a month is
+ACTIVITY_EDGES = [3, 10, 30, 100, 300, 1000]  # model E: block MODIS detections per month, 7 activity bins
+MIN_BIN_MODIS = 20  # model E: a month x activity bin with fewer MODIS detections in training falls back to the month ratio
 REQUIRED = {"region", "sensor", "platform", "product", "cell_lat", "cell_lon", "year", "month", "n_detections"}
 FIT_START, FIT_END, DRIFT_START = 2012, 2021, 2022  # fit/CV window; Aqua's overpass drifts later from 2021 to 2022
 BRIDGE_TOL = (0.9, 1.1)  # NOAA-20 / S-NPP median AOI ratio outside this -> NOAA-20 is rescaled
@@ -52,7 +57,9 @@ SELECTION_RULE = (f"Keep the candidate models whose AOI-level bias is within +/-
                   "median AOI-level error among them. If none qualifies, choose the lowest absolute bias and warn.")
 SELECTION_NOTE = ("This rule was set after seeing the first cross-validation results, in which the earlier rule (lowest error, "
                   "simpler model preferred within 5 percent) chose a model with a large bias. It was not fixed in advance, "
-                  "so the reported errors are not those of a pre-registered choice.")
+                  "so the reported errors are not those of a pre-registered choice. Model E (ratio per calendar month and "
+                  "MODIS activity) was added after seeing Western North America's cross-validation results, and the same "
+                  "held-out years both selected and scored it, so its error is somewhat optimistic.")
 BLUE, ORANGE, GREY = "#0072B2", "#E69F00", "#666666"  # colour-blind safe
 
 
@@ -118,8 +125,23 @@ def active(arr):
 
 # ---------------------------------------------------------------- models
 
-def fit(name, x, y, moy):
-    """Fit one model on 2-D arrays x (MODIS) and y (VIIRS), cells x months; moy = month of year per column."""
+def block_ids(cells):
+    """Block number (0..n-1) of every cell: cells are grouped into BLOCK_DEG x BLOCK_DEG degree blocks."""
+    key = zip(np.floor(cells["cell_lat"].values / BLOCK_DEG), np.floor(cells["cell_lon"].values / BLOCK_DEG))
+    return pd.factorize(pd.Series(list(key)))[0]
+
+
+def activity_bins(x, bid):
+    """Model E: activity bin (0 to len(ACTIVITY_EDGES)) of every cell-month, from the MODIS detections in its block that
+    month. MODIS counts are known for every month back to 2002, so the bin can be used for the estimated months."""
+    sums = np.zeros((bid.max() + 1, x.shape[1]))
+    np.add.at(sums, bid, x)
+    return np.digitize(sums[bid], ACTIVITY_EDGES)
+
+
+def fit(name, x, y, moy, bid=None):
+    """Fit one model on 2-D arrays x (MODIS) and y (VIIRS), cells x months; moy = month of year per column.
+    bid (block number per cell) is needed by model E only."""
     if name == "A":
         if x.sum() == 0:
             raise SystemExit("No MODIS detections in the training data; cannot fit the ratio model.")
@@ -133,6 +155,24 @@ def fit(name, x, y, moy):
             xs = x[:, moy == month].sum()
             ratios.append(float(y[:, moy == month].sum() / xs) if xs > 0 else overall)
         return {"ratios": ratios, "r": overall}
+    if name == "E":
+        # Model D's ratio per calendar month, split again by how active the block was in that month: in quiet months
+        # VIIRS sees many small fires MODIS misses (a high ratio), in busy months MODIS catches more of them.
+        # "ratios" keeps the plain per-month ratio of totals (the app charts it); "table" is month x activity bin.
+        if bid is None:
+            raise SystemExit("Model E needs the block number of every cell.")
+        overall = float(y.sum() / x.sum()) if x.sum() > 0 else 0.0
+        bins = activity_bins(x, bid)
+        ratios, table = [], np.zeros((12, len(ACTIVITY_EDGES) + 1))
+        for month in range(1, 13):
+            cm = moy == month
+            xs = x[:, cm].sum()
+            ratios.append(float(y[:, cm].sum() / xs) if xs > 0 else overall)
+            xm, ym, bm = x[:, cm], y[:, cm], bins[:, cm]
+            for k in range(table.shape[1]):
+                xk = xm[bm == k].sum()
+                table[month - 1, k] = ym[bm == k].sum() / xk if xk > MIN_BIN_MODIS else ratios[-1]
+        return {"ratios": ratios, "r": overall, "table": table.tolist(), "edges": ACTIVITY_EDGES, "block_deg": BLOCK_DEG}
     lx, ly = np.log1p(x).ravel(), np.log1p(y).ravel()
     if name == "B":
         b, a = np.polyfit(lx, ly, 1)
@@ -146,7 +186,7 @@ def fit(name, x, y, moy):
     return {"offsets": coef[:12].tolist(), "b": float(coef[12])}
 
 
-def predict(name, p, x, moy):
+def predict(name, p, x, moy, bid=None):
     """Predict VIIRS counts. B and C back-transform with expm1, which is slightly biased low
     (the exp of an average of logs is not the average); the bias shows up in the AOI-level
     bias metric below rather than being corrected here."""
@@ -154,21 +194,27 @@ def predict(name, p, x, moy):
         return p["r"] * x
     if name == "D":
         return np.asarray(p["ratios"])[moy - 1] * x
+    if name == "E":
+        if bid is None:
+            raise SystemExit("Model E needs the block number of every cell.")
+        return np.asarray(p["table"])[(moy - 1)[None, :], activity_bins(x, bid)] * x
     lx = np.log1p(x)
     z = p["a"] + p["b"] * lx if name == "B" else np.asarray(p["offsets"])[moy - 1] + p["b"] * lx
     return np.clip(np.expm1(z), 0, None)
 
 
-def loyo_predictions(x, y, years, moy):
-    """Leave-one-year-out: every overlap cell-month is predicted by models fitted on other years."""
+def loyo_predictions(x, y, years, moy, bid=None):
+    """Leave-one-year-out: every overlap cell-month is predicted by models fitted on other years.
+    Models that need the cell blocks (E) are only run when bid is given."""
     if len(np.unique(years)) < 2:
         raise SystemExit("Need at least 2 overlap years for leave-one-year-out cross-validation.")
-    oof = {m: np.zeros_like(x) for m in MODELS}
+    models = [m for m in MODELS if bid is not None or m not in NEEDS_BLOCKS]
+    oof = {m: np.zeros_like(x) for m in models}
     for yr in np.unique(years):
         test = years == yr
-        for m in MODELS:
-            params = fit(m, x[:, ~test], y[:, ~test], moy[~test])
-            oof[m][:, test] = predict(m, params, x[:, test], moy[test])
+        for m in models:
+            params = fit(m, x[:, ~test], y[:, ~test], moy[~test], bid)
+            oof[m][:, test] = predict(m, params, x[:, test], moy[test], bid)
     return oof
 
 
@@ -229,7 +275,7 @@ def aoi_metrics(sy, sp):
 def select_model(aoi):
     """Returns (chosen, candidate_table, none_qualified). See SELECTION_RULE. Ties go to the simpler model."""
     table = [{"model": m, "name": MODEL_NAMES[m], "median_ape_pct": aoi[m]["median_ape_pct"], "bias_pct": aoi[m]["bias_pct"],
-              "qualifies": abs(aoi[m]["bias_pct"]) <= MAX_AOI_BIAS} for m in MODELS]
+              "qualifies": abs(aoi[m]["bias_pct"]) <= MAX_AOI_BIAS} for m in MODELS if m in aoi]
     ok = [r for r in table if r["qualifies"]]
     if ok:
         best = min(ok, key=lambda r: (r["median_ape_pct"], MODELS.index(r["model"])))
@@ -375,14 +421,14 @@ def multipliers(sy, sp, moy, per_month):
 
 # ---------------------------------------------------------------- harmonized table
 
-def harmonize_table(region, months, cells, cube, model, params, lo_m, hi_m, n20_scale=1.0):
+def harmonize_table(region, months, cells, cube, model, params, lo_m, hi_m, n20_scale=1.0, bid=None):
     """S-NPP > NOAA-20 SP > NOAA-20 NRT (provisional) > MODIS estimate. Cell-months with no active
     sensor are omitted. The MODIS estimate is only used BEFORE S-NPP starts: the fitted relationship
     is not valid after 2021 (Aqua drift), so it is never extrapolated into later gaps."""
     mod, snpp = cube["modis_aqua"], cube["viirs_snpp"]
     n20sp, n20nrt = cube["viirs_noaa20_sp"], cube["viirs_noaa20_nrt"]
     moy = months.month.values
-    est = predict(model, params, np.nan_to_num(mod), moy)
+    est = predict(model, params, np.nan_to_num(mod), moy, bid)
     use_s = ~np.isnan(snpp)
     use_n = ~np.isnan(n20sp) & ~use_s
     use_p = ~np.isnan(n20nrt) & ~use_s & ~use_n
@@ -532,27 +578,28 @@ def process_region(region, bbox, rdf, outdir):
     print(f"\n=== {region}: {len(cells)} cells, fit window {months_ov[0]:%Y-%m} to {months_ov[-1]:%Y-%m} "
           f"({ov.sum()} months, {len(np.unique(years))} CV folds)")
 
-    oof = loyo_predictions(x, y, years, moy)
+    bid = block_ids(cells)
+    oof = loyo_predictions(x, y, years, moy, bid)
     aois = random_aois(cells, bbox, np.random.default_rng(SEED))
     masks = [m for m, _ in aois]
     cell, reg, aoi, pairs = {}, {}, {}, {}
-    for m in MODELS:
+    for m in oof:
         cell[m], reg[m] = cell_metrics(y, oof[m]), region_metrics(y, oof[m])
         pairs[m] = aoi_pairs(y, oof[m], masks, moy)
         aoi[m] = aoi_metrics(pairs[m][0], pairs[m][1])
     table_cmp = pd.DataFrame({
-        "model": [f"{m} {MODEL_NAMES[m]}" for m in MODELS],
-        "cell_RMSE": [cell[m]["rmse"] for m in MODELS], "cell_MAE": [cell[m]["mae"] for m in MODELS],
-        "cell_R2log": [cell[m]["r2_log1p"] for m in MODELS],
-        "reg_MAPE%": [reg[m]["mape_pct"] for m in MODELS], "reg_bias%": [reg[m]["bias_pct"] for m in MODELS],
-        "AOI_medAPE%": [aoi[m]["median_ape_pct"] for m in MODELS], "AOI_bias%": [aoi[m]["bias_pct"] for m in MODELS],
+        "model": [f"{m} {MODEL_NAMES[m]}" for m in oof],
+        "cell_RMSE": [cell[m]["rmse"] for m in oof], "cell_MAE": [cell[m]["mae"] for m in oof],
+        "cell_R2log": [cell[m]["r2_log1p"] for m in oof],
+        "reg_MAPE%": [reg[m]["mape_pct"] for m in oof], "reg_bias%": [reg[m]["bias_pct"] for m in oof],
+        "AOI_medAPE%": [aoi[m]["median_ape_pct"] for m in oof], "AOI_bias%": [aoi[m]["bias_pct"] for m in oof],
     })
     print(table_cmp.round(2).to_string(index=False))
 
     best, candidates, none_qualified = select_model(aoi)
     print(f"chosen model: {best} ({MODEL_NAMES[best]}); AOI-month pairs used: {aoi[best]['n_aoi_months']}")
-    params = fit(best, x, y, moy)  # final fit on all overlap data
-    per_month = best in ("C", "D")
+    params = fit(best, x, y, moy, bid)  # final fit on all overlap data
+    per_month = best in ("C", "D", "E")
     lo_m, hi_m = multipliers(*pairs[best], per_month=per_month)
     size_rows = size_class_table(y, oof[best], aois, moy, years, per_month, bbox, (lo_m, hi_m))
     print(f"\nError and interval by AOI size, chosen model {best} (same random AOIs; median % error uses non-zero months only,"
@@ -574,7 +621,7 @@ def process_region(region, bbox, rdf, outdir):
     post_year = {}
     if dr.any():
         md = months[dr]
-        pd_ = predict(best, params, cube["modis_aqua"][:, dr], md.month.values)
+        pd_ = predict(best, params, cube["modis_aqua"][:, dr], md.month.values, bid)
         post_year = per_year_aoi(cube["viirs_snpp"][:, dr], pd_, masks, md.month.values, md.year.values)
     plot_drift(region, outdir / f"drift_{region}.png", cv_year, post_year)
     print("AOI median APE by year, CV:", {k: round(v["median_ape_pct"], 1) for k, v in cv_year.items()})
@@ -595,7 +642,7 @@ def process_region(region, bbox, rdf, outdir):
                   f"\n!!! (SP and NRT) are DIVIDED by {r:.3f} (x{n20_scale:.3f}) to match S-NPP.\n" + "!" * 78)
         br["scale_applied"] = n20_scale
 
-    table = harmonize_table(region, months, cells, cube, best, params, lo_m, hi_m, n20_scale)
+    table = harmonize_table(region, months, cells, cube, best, params, lo_m, hi_m, n20_scale, bid)
     top_m, top_y = top_lists(table)
     cont = continuity(months_ov, y, oof[best])
     print(f"continuity 2012-2013 (out-of-sample MODIS estimate vs VIIRS native): mean diff {cont:+.1f}%")
@@ -630,7 +677,7 @@ def process_region(region, bbox, rdf, outdir):
         "drift": {"cv_by_year": cv_year, "fitted_model_on_drift_years": post_year,
                   "note": "diagnostic only: Aqua's overpass has drifted later since 2021 to 2022; nothing is tuned to this"},
         "bridge_noaa20_vs_snpp": br,
-        "models": {m: {"cell": cell[m], "region": reg[m], "aoi": aoi[m]} for m in MODELS},
+        "models": {m: {"cell": cell[m], "region": reg[m], "aoi": aoi[m]} for m in oof},
         "chosen_model": best, "params": params,
         "model_selection": {"rule": SELECTION_RULE, "max_abs_bias_pct": MAX_AOI_BIAS, "candidates": candidates,
                             "chosen": best, "none_qualified": none_qualified, "note": SELECTION_NOTE},

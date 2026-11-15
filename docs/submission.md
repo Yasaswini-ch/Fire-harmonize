@@ -27,7 +27,7 @@ number can be trusted. Every harmonized number carries a range and a source flag
 
 NASA FIRMS standard-processing data (MODIS Aqua, VIIRS Suomi NPP and NOAA-20) is filtered to presumed vegetation fires and summed
 into 0.25 degree monthly cells. Months before VIIRS are estimated from MODIS with a ratio fitted separately for each calendar month
-on the 2012 to 2021 overlap. Four candidate models are compared by leaving each year out; the lowest-error model whose bias is
+and level of MODIS activity on the 2012 to 2021 overlap. Five candidate models are compared by leaving each year out; the lowest-error model whose bias is
 within 15 percent is used. Intervals come from held-out residuals and are set by area size. NOAA-20 is bridged to Suomi NPP and
 checked over their overlap and over the latest months.
 
@@ -35,10 +35,10 @@ checked over their overlap and over the latest months.
 
 Typical error of an estimated month, by area size, leave-one-year-out:
 
-- Whole region: 12 percent (Western North America) and 11 percent (Zambia)
-- Areas of 3 to 5 degrees: 42 percent and 18 percent
-- Areas of 1 to 2 degrees: 100 percent (a median of 15 detections a month) and 21 percent
-- Bias: -0.6 percent and +1.8 percent. Interval coverage on held-out years: 76 to 81 percent against an 80 percent target.
+- Whole region: 9 percent (Western North America) and 10 percent (Zambia)
+- Areas of 3 to 5 degrees: 39 percent and 17 percent
+- Areas of 1 to 2 degrees: 99 percent (a median of 15 detections a month) and 20 percent
+- Bias: -0.8 percent and 0.0 percent. Interval coverage on held-out years: 76 to 81 percent against an 80 percent target.
 
 Solid at region scale, wider uncertainty for small areas. (Numbers from `data/processed/validation.json`; update them if the
 pipeline is re-run.)

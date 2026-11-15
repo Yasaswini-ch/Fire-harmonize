@@ -18,8 +18,8 @@ line is where VIIRS observations begin, pink outlines are the five highest month
 
 **1:15 to 1:25, compare.** Open the "Compare areas" tab. Type a second box inside the region and press Compare. "Do these two places burn in the same years? The page gives a correlation and says what it means, with the same ranges on every estimate." Press Copy link to this view in Area and dates if there is time.
 
-**1:25 to 1:50, trust.** Open Accuracy and methods. "We tested it by leaving each year out: about 11 percent error region-wide
-and about 18 to 21 percent for small areas in Zambia. In Western North America small areas are much noisier, and we show that
+**1:25 to 1:50, trust.** Open Accuracy and methods. "We tested it by leaving each year out: about 9 to 10 percent error region-wide
+and about 17 to 20 percent for small areas in Zambia. In Western North America small areas are much noisier, and we show that
 too." Show the three accuracy graphs and the size table.
 
 **1:50 to 2:00, close.** Open Extras, press Play 30 seconds on Listen. "You can even listen to it: a hollow chord is an estimate,

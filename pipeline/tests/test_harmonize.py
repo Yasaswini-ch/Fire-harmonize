@@ -58,6 +58,53 @@ class ModelD(unittest.TestCase):
         self.assertLess(err["D"], err["A"] + 1e-9)
 
 
+class ModelE(unittest.TestCase):
+    @staticmethod
+    def fixture():
+        """Four cells in two 1 degree blocks. The quiet block (x=2 per cell) has VIIRS/MODIS 10, the busy block
+        (x=100 per cell) has 3, in every month, so the ratio depends on activity and not on the month."""
+        bid = np.array([0, 0, 1, 1])
+        moy = np.tile(np.arange(1, 13), 8)
+        x = np.vstack([np.full((2, moy.size), 2.0), np.full((2, moy.size), 100.0)])
+        y = x * np.array([10.0, 10.0, 3.0, 3.0])[:, None]
+        return x, y, moy, np.repeat(np.arange(2012, 2020), 12), bid
+
+    def test_recovers_a_ratio_that_depends_on_activity(self):
+        x, y, moy, _, bid = self.fixture()
+        params = h.fit("E", x, y, moy, bid)
+        np.testing.assert_allclose(h.predict("E", params, x, moy, bid), y)
+        self.assertEqual(np.asarray(params["table"]).shape, (12, len(h.ACTIVITY_EDGES) + 1))
+
+    def test_beats_the_per_month_ratio_when_the_ratio_depends_on_activity(self):
+        x, y, moy, years, bid = self.fixture()
+        oof = h.loyo_predictions(x, y, years, moy, bid)
+        self.assertLess(np.abs(oof["E"] - y).mean(), np.abs(oof["D"] - y).mean() * 0.01)
+
+    def test_a_thin_bin_falls_back_to_the_month_ratio(self):
+        x, y, moy, _, bid = self.fixture()
+        params = h.fit("E", x, y, moy, bid)
+        self.assertAlmostEqual(params["table"][0][6], params["ratios"][0])  # no block is that busy in the training data
+
+    def test_keeps_the_plain_monthly_ratios_the_app_charts(self):
+        x, y, moy, _, bid = self.fixture()
+        self.assertEqual(len(h.fit("E", x, y, moy, bid)["ratios"]), 12)
+
+    def test_needs_the_cell_blocks(self):
+        x, y, moy, _, _ = self.fixture()
+        with self.assertRaises(SystemExit):
+            h.fit("E", x, y, moy)
+
+    def test_cross_validation_skips_it_without_blocks(self):
+        x, y, moy, years, _ = self.fixture()
+        self.assertNotIn("E", h.loyo_predictions(x, y, years, moy))
+
+    def test_block_ids_group_cells_by_whole_degree(self):
+        cells = pd.DataFrame({"cell_lat": [10.125, 10.875, 11.125, 10.375], "cell_lon": [20.125, 20.875, 20.125, 21.125]})
+        bid = h.block_ids(cells)
+        self.assertEqual(bid[0], bid[1])
+        self.assertEqual(len({bid[0], bid[2], bid[3]}), 3)
+
+
 class ModelA(unittest.TestCase):
     def test_single_ratio_is_the_ratio_of_sums(self):
         x = np.array([[1.0, 2.0], [3.0, 4.0]])
@@ -106,7 +153,7 @@ class SelectModel(unittest.TestCase):
 
     def test_the_candidate_table_lists_every_model_with_error_and_bias(self):
         _, table, _ = h.select_model(self.aoi(A=(1.0, 2.0), B=(3.0, 4.0), C=(5.0, 6.0), D=(7.0, 8.0)))
-        self.assertEqual([r["model"] for r in table], h.MODELS)
+        self.assertEqual([r["model"] for r in table], ["A", "B", "C", "D"])  # only the models that were run
         self.assertEqual((table[3]["median_ape_pct"], table[3]["bias_pct"]), (7.0, 8.0))
 
     def test_the_rule_is_recorded_as_set_after_seeing_results(self):

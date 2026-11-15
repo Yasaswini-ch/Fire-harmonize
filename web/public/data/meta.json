@@ -1,6 +1,6 @@
 {
   "synthetic": false,
-  "dataVersion": "2026-11-15-c44dbdd7",
+  "dataVersion": "2026-11-15-ed7c9dcc",
   "generated": "2026-11-15",
   "methodsSummary": "Fire detections come from NASA FIRMS: the MODIS instrument on the Aqua satellite (from 2002) and the 375 m VIIRS instruments on Suomi NPP (used through 2026-07-31) and NOAA-20. Only detections classed as presumed vegetation fires are counted, low-confidence detections are dropped, and the rest are summed into 0.25 degree cells by calendar month. VIIRS has smaller pixels and detects many more fires than MODIS, so MODIS counts are converted to VIIRS-equivalent counts with a statistical model fitted on the 2012 to 2021 overlap of the two sensors and tested by leaving each year out in turn. That relationship is assumed to hold for 2002 to 2011, which cannot be checked and is the main limit of the early record; Aqua's overpass has drifted later since 2021 to 2022, so the model is not used after 2021. Months before February 2012 are therefore model estimates and are shown with an empirical range (the 10th to 90th percentile of past errors on held-out years), which is not a formal confidence interval. From February 2012 the series uses Suomi NPP counts directly, and months after Suomi NPP ended (2026-07-31) come from NOAA-20, compared with Suomi NPP over the months both flew (the ratio and whether any scaling was applied are listed per region). The most recent months use near-real-time NOAA-20 data, are marked provisional and may change when standard processing replaces them; static sources such as gas flares are removed from them using a mask built from standard-processing files. Harmonized values are model estimates, not observations.",
   "snpp": {
@@ -146,8 +146,8 @@
   "regions": {
     "western_na": {
       "model": {
-        "id": "D",
-        "name": "ratio fitted separately for each calendar month",
+        "id": "E",
+        "name": "ratio fitted separately for each calendar month and level of MODIS activity",
         "params": {
           "ratios": [
             5.110419906687403,
@@ -163,7 +163,126 @@
             7.437243785433929,
             7.161813057773602
           ],
-          "r": 8.598274427659835
+          "r": 8.598274427659835,
+          "table": [
+            [
+              14.650980392156862,
+              4.396196513470682,
+              3.229381443298969,
+              3.153558052434457,
+              5.110419906687403,
+              5.110419906687403,
+              5.110419906687403
+            ],
+            [
+              13.22,
+              4.09201213346815,
+              3.9314040728831725,
+              3.0320284697508897,
+              3.5688073394495414,
+              4.904858987427795,
+              4.904858987427795
+            ],
+            [
+              12.606911447084233,
+              4.02493321460374,
+              4.094711917916338,
+              3.1105398457583546,
+              4.947672817405674,
+              4.947672817405674,
+              4.947672817405674
+            ],
+            [
+              12.97011952191235,
+              4.60188261351052,
+              3.973326359832636,
+              2.921474358974359,
+              5.004541701073493,
+              5.004541701073493,
+              5.004541701073493
+            ],
+            [
+              14.075050709939148,
+              4.988220706757595,
+              4.153546375681995,
+              3.9036144578313254,
+              5.603053435114504,
+              5.760609911054638,
+              5.760609911054638
+            ],
+            [
+              15.029545454545454,
+              5.897715988083416,
+              5.1649961449498845,
+              6.100588235294118,
+              8.304459691252145,
+              7.171830985915493,
+              7.016093880972338
+            ],
+            [
+              16.871111111111112,
+              7.185915492957746,
+              6.524150268336315,
+              7.826616219772989,
+              8.06615776081425,
+              9.52262101210121,
+              9.789410708944063
+            ],
+            [
+              20.86764705882353,
+              7.852358168147642,
+              8.267862481315396,
+              9.144119726608531,
+              9.340117456460105,
+              9.679988635287433,
+              9.462258112167019
+            ],
+            [
+              13.611510791366907,
+              6.235,
+              7.174071991001125,
+              7.691790888095738,
+              9.260570469798658,
+              9.928842552760766,
+              10.167840892411567
+            ],
+            [
+              15.40513833992095,
+              6.061750817290229,
+              5.659228187919463,
+              5.506915629322268,
+              8.646533613445378,
+              11.162259076647244,
+              6.867488765806249
+            ],
+            [
+              20.888475836431226,
+              7.927301461872777,
+              6.510125772756342,
+              5.551758793969849,
+              8.662921348314606,
+              10.026490066225165,
+              7.437243785433929
+            ],
+            [
+              21.036363636363635,
+              6.439347604485219,
+              4.291523087525844,
+              3.593385214007782,
+              6.59,
+              9.640589569160998,
+              7.161813057773602
+            ]
+          ],
+          "edges": [
+            3,
+            10,
+            30,
+            100,
+            300,
+            1000
+          ],
+          "block_deg": 1.0
         },
         "fitWindow": [
           "2012-02",
@@ -174,17 +293,17 @@
       "cv": {
         "chosen": {
           "cell": {
-            "rmse": 21.72251614217284,
-            "mae": 1.859106669377216,
-            "r2_log1p": 0.5864226824022344
+            "rmse": 21.06807231636156,
+            "mae": 1.8357438802117396,
+            "r2_log1p": 0.5701355946920292
           },
           "region": {
-            "mape_pct": 14.418907670578049,
-            "bias_pct": -0.7439937103071671
+            "mape_pct": 12.02456085981134,
+            "bias_pct": -1.2154416596898314
           },
           "aoi": {
-            "median_ape_pct": 45.0674743892829,
-            "bias_pct": -0.5683637841193431,
+            "median_ape_pct": 42.11003385657126,
+            "bias_pct": -0.8410152250023071,
             "n_aoi_months": 20813
           }
         },
@@ -208,55 +327,60 @@
             "median_ape_pct": 45.0674743892829,
             "bias_pct": -0.5683637841193431,
             "n_aoi_months": 20813
+          },
+          "E": {
+            "median_ape_pct": 42.11003385657126,
+            "bias_pct": -0.8410152250023071,
+            "n_aoi_months": 20813
           }
         },
         "byYear": {
           "2012": {
-            "medianApePct": 48.13365812849092,
-            "biasPct": 6.546873746776528
+            "medianApePct": 47.33039657327512,
+            "biasPct": 6.679509138860942
           },
           "2013": {
-            "medianApePct": 50.73126846786913,
-            "biasPct": 12.34994984009113
+            "medianApePct": 45.31057728995434,
+            "biasPct": 8.924320173064169
           },
           "2014": {
-            "medianApePct": 49.582400193131996,
-            "biasPct": 8.236222614267417
+            "medianApePct": 45.71691203441428,
+            "biasPct": 5.397414542012596
           },
           "2015": {
-            "medianApePct": 43.47842035207916,
-            "biasPct": -4.9703010276886745
+            "medianApePct": 39.828037176597974,
+            "biasPct": -7.021771940462964
           },
           "2016": {
-            "medianApePct": 44.64511770341284,
-            "biasPct": 5.597152541791997
+            "medianApePct": 40.438138203743186,
+            "biasPct": 0.041368629253002775
           },
           "2017": {
-            "medianApePct": 41.65138395494094,
-            "biasPct": 2.555522423257783
+            "medianApePct": 39.031629690391256,
+            "biasPct": 2.8740147078263893
           },
           "2018": {
-            "medianApePct": 39.59161458387178,
-            "biasPct": 7.5646682353797
+            "medianApePct": 37.8415813328429,
+            "biasPct": 4.897662541203913
           },
           "2019": {
-            "medianApePct": 51.71481572559698,
-            "biasPct": 14.413306756226913
+            "medianApePct": 50.80815186133512,
+            "biasPct": 6.045116297927278
           },
           "2020": {
-            "medianApePct": 41.68073268317079,
-            "biasPct": -15.11923967427047
+            "medianApePct": 39.16796766917168,
+            "biasPct": -12.406017873419275
           },
           "2021": {
-            "medianApePct": 40.59266452240813,
-            "biasPct": -3.745077322871469
+            "medianApePct": 38.00491335871483,
+            "biasPct": -1.8004888309289542
           }
         },
-        "continuity2012to2013MeanPctDiff": 12.655462914427915,
+        "continuity2012to2013MeanPctDiff": 13.596805499014723,
         "interval": "empirical 10-90 percentile of actual/predicted over cross-validated AOI-months (200 rectangles of 1-5 deg); not a formal confidence interval"
       },
       "warnings": [
-        "AOI median error 45.1% > 30%"
+        "AOI median error 42.1% > 30%"
       ],
       "modelSelection": {
         "rule": "Keep the candidate models whose AOI-level bias is within +/-15 percent, then choose the lowest median AOI-level error among them. If none qualifies, choose the lowest absolute bias and warn.",
@@ -289,11 +413,18 @@
             "medianApePct": 45.0674743892829,
             "biasPct": -0.5683637841193431,
             "qualifies": true
+          },
+          {
+            "model": "E",
+            "name": "ratio per calendar month and MODIS activity",
+            "medianApePct": 42.11003385657126,
+            "biasPct": -0.8410152250023071,
+            "qualifies": true
           }
         ],
-        "chosen": "D",
+        "chosen": "E",
         "noneQualified": false,
-        "note": "This rule was set after seeing the first cross-validation results, in which the earlier rule (lowest error, simpler model preferred within 5 percent) chose a model with a large bias. It was not fixed in advance, so the reported errors are not those of a pre-registered choice."
+        "note": "This rule was set after seeing the first cross-validation results, in which the earlier rule (lowest error, simpler model preferred within 5 percent) chose a model with a large bias. It was not fixed in advance, so the reported errors are not those of a pre-registered choice. Model E (ratio per calendar month and MODIS activity) was added after seeing Western North America's cross-validation results, and the same held-out years both selected and scored it, so its error is somewhat optimistic."
       },
       "sizeClasses": [
         {
@@ -302,9 +433,9 @@
           "minDeg": 1.0,
           "maxDeg": 2.0,
           "nAois": 12,
-          "medianApePct": 100.0,
-          "biasPct": 5.819062448481108,
-          "countWeightedErrorPct": 27.34611360820777,
+          "medianApePct": 99.16666666666669,
+          "biasPct": 2.1826458515426723,
+          "countWeightedErrorPct": 24.456740303868393,
           "medianActualCountNonzero": 15.0,
           "medianActualCountAll": 6.0,
           "nPairs": 1071,
@@ -312,10 +443,10 @@
           "zeroPredHi": 9.0,
           "coverage": {
             "targetPct": 80.0,
-            "heldOutYearsPct": 78.29457364341086,
-            "heldOutYearsPctPredictedPositive": 77.73359840954275,
+            "heldOutYearsPct": 78.55297157622739,
+            "heldOutYearsPctPredictedPositive": 78.13121272365805,
             "zeroPredSharePct": 35.42483660130719,
-            "inSamplePct": 78.9405684754522,
+            "inSamplePct": 79.06976744186046,
             "n": 774
           },
           "pooledMultipliers": false
@@ -326,9 +457,9 @@
           "minDeg": 2.0,
           "maxDeg": 3.0,
           "nAois": 32,
-          "medianApePct": 56.41339869281046,
-          "biasPct": -2.4904771890362585,
-          "countWeightedErrorPct": 19.43209616836805,
+          "medianApePct": 58.475107302876005,
+          "biasPct": -2.2763985668907516,
+          "countWeightedErrorPct": 18.324971291793148,
           "medianActualCountNonzero": 33.0,
           "medianActualCountAll": 23.0,
           "nPairs": 3689,
@@ -336,10 +467,10 @@
           "zeroPredHi": 13.0,
           "coverage": {
             "targetPct": 80.0,
-            "heldOutYearsPct": 79.91942981096994,
-            "heldOutYearsPctPredictedPositive": 78.27684769293589,
+            "heldOutYearsPct": 80.4772234273319,
+            "heldOutYearsPctPredictedPositive": 79.01184156798693,
             "zeroPredSharePct": 24.184022381100405,
-            "inSamplePct": 81.03501704369384,
+            "inSamplePct": 81.0040285094515,
             "n": 3227
           },
           "pooledMultipliers": false
@@ -350,9 +481,9 @@
           "minDeg": 3.0,
           "maxDeg": 5.0,
           "nAois": 156,
-          "medianApePct": 41.987971956426215,
-          "biasPct": -0.4425852659319864,
-          "countWeightedErrorPct": 16.356339955171187,
+          "medianApePct": 38.88035867927788,
+          "biasPct": -0.7308411108692359,
+          "countWeightedErrorPct": 14.954781706534984,
           "medianActualCountNonzero": 79.0,
           "medianActualCountAll": 66.0,
           "nPairs": 17969,
@@ -363,7 +494,7 @@
             "heldOutYearsPct": 80.66524368552116,
             "heldOutYearsPctPredictedPositive": 79.50169875424689,
             "zeroPredSharePct": 16.2676014497059,
-            "inSamplePct": 81.07435076485237,
+            "inSamplePct": 81.05063441242737,
             "n": 16866
           },
           "pooledMultipliers": false
@@ -374,9 +505,9 @@
           "minDeg": 20.0,
           "maxDeg": 20.0,
           "nAois": 1,
-          "medianApePct": 11.98249481745332,
-          "biasPct": -0.7439937103071671,
-          "countWeightedErrorPct": 10.450249806771943,
+          "medianApePct": 9.028062445833115,
+          "biasPct": -1.2154416596898314,
+          "countWeightedErrorPct": 8.814272296751435,
           "medianActualCountNonzero": 3615.0,
           "medianActualCountAll": 3615.0,
           "nPairs": 119,
@@ -384,8 +515,8 @@
           "zeroPredHi": 0.0,
           "coverage": {
             "targetPct": 80.0,
-            "heldOutYearsPct": 80.67226890756302,
-            "heldOutYearsPctPredictedPositive": 80.67226890756302,
+            "heldOutYearsPct": 76.47058823529412,
+            "heldOutYearsPctPredictedPositive": 76.47058823529412,
             "zeroPredSharePct": 0.0,
             "inSamplePct": 79.83193277310924,
             "n": 119
@@ -413,34 +544,34 @@
         "note": "Aqua's overpass has drifted later since 2021 to 2022; model fitted 2012-2021 applied to later years; diagnostic only",
         "aoiErrorByYearFromDriftStart": {
           "2022": {
-            "median_ape_pct": 56.68299543172124,
-            "bias_pct": 1.0299032687857805,
+            "median_ape_pct": 55.43822647169103,
+            "bias_pct": -2.7009490109456795,
             "n_aoi_months": 2099
           },
           "2023": {
-            "median_ape_pct": 44.032867763604216,
-            "bias_pct": 3.9803696467327714,
+            "median_ape_pct": 40.07679385649148,
+            "bias_pct": -2.4072215798718832,
             "n_aoi_months": 2091
           },
           "2024": {
-            "median_ape_pct": 42.888669082347974,
-            "bias_pct": 16.02536766062028,
+            "median_ape_pct": 43.140764863717344,
+            "bias_pct": 16.28348531124489,
             "n_aoi_months": 2126
           },
           "2025": {
-            "median_ape_pct": 42.04103898916148,
-            "bias_pct": 7.007465669061716,
+            "median_ape_pct": 40.07679385649148,
+            "bias_pct": 1.7253196390691024,
             "n_aoi_months": 2145
           },
           "2026": {
-            "median_ape_pct": 52.87624595515671,
-            "bias_pct": 0.3374089132014189,
+            "median_ape_pct": 44.779770664603454,
+            "bias_pct": 1.9326900772777742,
             "n_aoi_months": 1248
           }
         },
         "cvMedianApeRangePct": [
-          39.59161458387178,
-          51.71481572559698
+          37.8415813328429,
+          50.80815186133512
         ]
       },
       "staticMask": {
@@ -455,8 +586,8 @@
     },
     "zambia": {
       "model": {
-        "id": "D",
-        "name": "ratio fitted separately for each calendar month",
+        "id": "E",
+        "name": "ratio fitted separately for each calendar month and level of MODIS activity",
         "params": {
           "ratios": [
             14.964285714285714,
@@ -472,7 +603,126 @@
             14.587145518526185,
             16.838422391857506
           ],
-          "r": 5.289613313839226
+          "r": 5.289613313839226,
+          "table": [
+            [
+              28.34090909090909,
+              6.081632653061225,
+              14.964285714285714,
+              12.571428571428571,
+              14.964285714285714,
+              14.964285714285714,
+              14.964285714285714
+            ],
+            [
+              21.18867924528302,
+              12.115384615384615,
+              7.188679245283019,
+              13.780303030303031,
+              13.780303030303031,
+              13.780303030303031,
+              13.780303030303031
+            ],
+            [
+              13.778947368421052,
+              7.13986013986014,
+              7.653225806451613,
+              7.186915887850467,
+              7.367965367965368,
+              8.214285714285714,
+              8.214285714285714
+            ],
+            [
+              26.825396825396826,
+              6.186948853615521,
+              6.003159557661927,
+              4.622727272727273,
+              4.783739837398374,
+              6.2777628394729765,
+              6.2777628394729765
+            ],
+            [
+              155.39423076923077,
+              6.925389755011136,
+              5.476815867059769,
+              4.776753310446297,
+              4.453060978549048,
+              4.472118185601332,
+              5.004026816420704
+            ],
+            [
+              12.023255813953488,
+              6.770491803278689,
+              4.890658942795076,
+              4.686598312312857,
+              4.247522656051495,
+              4.0237267682476014,
+              4.136832028830452
+            ],
+            [
+              1400.7142857142858,
+              21.883534136546185,
+              8.309859154929578,
+              5.413251961639058,
+              4.929109755814762,
+              4.402566279129754,
+              3.8395330097633193
+            ],
+            [
+              1128.3333333333333,
+              16.17365269461078,
+              11.563527653213752,
+              7.8030262808601005,
+              6.6373404510146115,
+              5.131833640551192,
+              4.6512939092048855
+            ],
+            [
+              5.886360907117454,
+              13.30281690140845,
+              9.725212464589235,
+              7.749749892811205,
+              6.6229398766227785,
+              5.843992571571655,
+              5.3868470297574635
+            ],
+            [
+              60.714285714285715,
+              16.474885844748858,
+              11.905753968253968,
+              9.223492157735887,
+              7.6739774591248215,
+              6.265178147268409,
+              7.854935274086277
+            ],
+            [
+              95.48275862068965,
+              18.94196744515216,
+              13.009910188912976,
+              11.143483023001096,
+              12.443048576214405,
+              14.587145518526185,
+              14.587145518526185
+            ],
+            [
+              32.43181818181818,
+              13.10344827586207,
+              11.683870967741935,
+              11.066115702479339,
+              13.107843137254902,
+              16.838422391857506,
+              16.838422391857506
+            ]
+          ],
+          "edges": [
+            3,
+            10,
+            30,
+            100,
+            300,
+            1000
+          ],
+          "block_deg": 1.0
         },
         "fitWindow": [
           "2012-02",
@@ -483,17 +733,17 @@
       "cv": {
         "chosen": {
           "cell": {
-            "rmse": 27.6213897068644,
-            "mae": 9.365088141481404,
-            "r2_log1p": 0.8644816165399029
+            "rmse": 26.75351626446243,
+            "mae": 9.281439213675815,
+            "r2_log1p": 0.8597950731628963
           },
           "region": {
-            "mape_pct": 22.77978460348877,
-            "bias_pct": 0.15833380668408517
+            "mape_pct": 29.936714668158547,
+            "bias_pct": -0.5751880608614718
           },
           "aoi": {
-            "median_ape_pct": 18.533094555843356,
-            "bias_pct": 1.7512275583670127,
+            "median_ape_pct": 17.554149152873823,
+            "bias_pct": 0.03841790370290359,
             "n_aoi_months": 21826
           }
         },
@@ -517,51 +767,56 @@
             "median_ape_pct": 18.533094555843356,
             "bias_pct": 1.7512275583670127,
             "n_aoi_months": 21826
+          },
+          "E": {
+            "median_ape_pct": 17.554149152873823,
+            "bias_pct": 0.03841790370290359,
+            "n_aoi_months": 21826
           }
         },
         "byYear": {
           "2012": {
-            "medianApePct": 17.58297434253496,
-            "biasPct": 1.9116327198229344
+            "medianApePct": 14.828863724502744,
+            "biasPct": 0.017731335842259402
           },
           "2013": {
-            "medianApePct": 18.51078520728034,
-            "biasPct": -0.3337181680292184
+            "medianApePct": 18.077788558238485,
+            "biasPct": -1.7975890058487505
           },
           "2014": {
-            "medianApePct": 17.6937441643324,
-            "biasPct": 6.336956279539732
+            "medianApePct": 15.929254705527669,
+            "biasPct": 3.658727414518039
           },
           "2015": {
-            "medianApePct": 18.31548301027571,
-            "biasPct": 6.876656189538758
+            "medianApePct": 15.851442185448022,
+            "biasPct": 3.7199045435983504
           },
           "2016": {
-            "medianApePct": 15.663629135652752,
-            "biasPct": 3.1717636985193014
+            "medianApePct": 15.953275111675897,
+            "biasPct": 0.8620202099763487
           },
           "2017": {
-            "medianApePct": 19.775031477615762,
-            "biasPct": 10.093565877584856
+            "medianApePct": 24.838670425567095,
+            "biasPct": 8.222716282705647
           },
           "2018": {
-            "medianApePct": 18.724240666400295,
-            "biasPct": 1.90004979849778
+            "medianApePct": 17.918289222124965,
+            "biasPct": 0.36584599890906844
           },
           "2019": {
-            "medianApePct": 17.48749337397292,
-            "biasPct": -1.0224274977820296
+            "medianApePct": 16.47456420130144,
+            "biasPct": -2.286911701972591
           },
           "2020": {
-            "medianApePct": 26.73137040456869,
-            "biasPct": -11.798931110081822
+            "medianApePct": 23.749999999999982,
+            "biasPct": -11.66942169950576
           },
           "2021": {
-            "medianApePct": 17.964782566397513,
-            "biasPct": -0.2045127926523103
+            "medianApePct": 17.37848059400312,
+            "biasPct": -1.0508684252570983
           }
         },
-        "continuity2012to2013MeanPctDiff": -12.925835284831228,
+        "continuity2012to2013MeanPctDiff": -8.418241849437173,
         "interval": "empirical 10-90 percentile of actual/predicted over cross-validated AOI-months (200 rectangles of 1-5 deg); not a formal confidence interval"
       },
       "warnings": [
@@ -598,11 +853,18 @@
             "medianApePct": 18.533094555843356,
             "biasPct": 1.7512275583670127,
             "qualifies": true
+          },
+          {
+            "model": "E",
+            "name": "ratio per calendar month and MODIS activity",
+            "medianApePct": 17.554149152873823,
+            "biasPct": 0.03841790370290359,
+            "qualifies": true
           }
         ],
-        "chosen": "D",
+        "chosen": "E",
         "noneQualified": false,
-        "note": "This rule was set after seeing the first cross-validation results, in which the earlier rule (lowest error, simpler model preferred within 5 percent) chose a model with a large bias. It was not fixed in advance, so the reported errors are not those of a pre-registered choice."
+        "note": "This rule was set after seeing the first cross-validation results, in which the earlier rule (lowest error, simpler model preferred within 5 percent) chose a model with a large bias. It was not fixed in advance, so the reported errors are not those of a pre-registered choice. Model E (ratio per calendar month and MODIS activity) was added after seeing Western North America's cross-validation results, and the same held-out years both selected and scored it, so its error is somewhat optimistic."
       },
       "sizeClasses": [
         {
@@ -611,9 +873,9 @@
           "minDeg": 1.0,
           "maxDeg": 2.0,
           "nAois": 12,
-          "medianApePct": 21.040716237633315,
-          "biasPct": -1.9470123109686002,
-          "countWeightedErrorPct": 13.39939624295231,
+          "medianApePct": 19.708207774470615,
+          "biasPct": -2.5200578147658983,
+          "countWeightedErrorPct": 13.13336990295752,
           "medianActualCountNonzero": 691.0,
           "medianActualCountAll": 133.5,
           "nPairs": 1428,
@@ -621,10 +883,10 @@
           "zeroPredHi": 8.0,
           "coverage": {
             "targetPct": 80.0,
-            "heldOutYearsPct": 76.26811594202898,
-            "heldOutYearsPctPredictedPositive": 76.53631284916202,
+            "heldOutYearsPct": 75.9963768115942,
+            "heldOutYearsPctPredictedPositive": 76.20111731843575,
             "zeroPredSharePct": 18.982742960944595,
-            "inSamplePct": 77.53623188405797,
+            "inSamplePct": 77.62681159420289,
             "n": 1104
           },
           "pooledMultipliers": false
@@ -635,9 +897,9 @@
           "minDeg": 2.0,
           "maxDeg": 3.0,
           "nAois": 32,
-          "medianApePct": 19.866247807337505,
-          "biasPct": 1.2301565978322195,
-          "countWeightedErrorPct": 12.768795971024392,
+          "medianApePct": 18.483414570291202,
+          "biasPct": -0.4202072987756291,
+          "countWeightedErrorPct": 10.871647568453406,
           "medianActualCountNonzero": 991.0,
           "medianActualCountAll": 260.5,
           "nPairs": 3808,
@@ -645,10 +907,10 @@
           "zeroPredHi": 13.0,
           "coverage": {
             "targetPct": 80.0,
-            "heldOutYearsPct": 77.9709228824273,
-            "heldOutYearsPctPredictedPositive": 78.02114803625378,
+            "heldOutYearsPct": 78.31858407079646,
+            "heldOutYearsPctPredictedPositive": 78.43655589123867,
             "zeroPredSharePct": 16.44359464627151,
-            "inSamplePct": 79.96207332490518,
+            "inSamplePct": 80.02528445006321,
             "n": 3164
           },
           "pooledMultipliers": false
@@ -659,9 +921,9 @@
           "minDeg": 3.0,
           "maxDeg": 5.0,
           "nAois": 156,
-          "medianApePct": 18.13337194034245,
-          "biasPct": 1.8501148213679353,
-          "countWeightedErrorPct": 11.265675688669072,
+          "medianApePct": 17.177367474509133,
+          "biasPct": 0.11587461917733034,
+          "countWeightedErrorPct": 9.644634888973663,
           "medianActualCountNonzero": 1467.0,
           "medianActualCountAll": 1072.5,
           "nPairs": 18564,
@@ -669,10 +931,10 @@
           "zeroPredHi": 18.0,
           "coverage": {
             "targetPct": 80.0,
-            "heldOutYearsPct": 78.8623874001473,
-            "heldOutYearsPctPredictedPositive": 77.87513691128149,
+            "heldOutYearsPct": 79.01535323777689,
+            "heldOutYearsPctPredictedPositive": 78.04909477482121,
             "zeroPredSharePct": 12.111218513674874,
-            "inSamplePct": 80.77729307121409,
+            "inSamplePct": 80.81128547957623,
             "n": 17651
           },
           "pooledMultipliers": false
@@ -683,9 +945,9 @@
           "minDeg": 12.0,
           "maxDeg": 12.0,
           "nAois": 1,
-          "medianApePct": 11.304029283341807,
-          "biasPct": 0.15833380668408517,
-          "countWeightedErrorPct": 7.104397859584831,
+          "medianApePct": 9.95748043145666,
+          "biasPct": -0.5751880608614718,
+          "countWeightedErrorPct": 6.1613075735957334,
           "medianActualCountNonzero": 15718.0,
           "medianActualCountAll": 15718.0,
           "nPairs": 119,
@@ -693,8 +955,8 @@
           "zeroPredHi": 0.0,
           "coverage": {
             "targetPct": 80.0,
-            "heldOutYearsPct": 78.99159663865547,
-            "heldOutYearsPctPredictedPositive": 78.99159663865547,
+            "heldOutYearsPct": 79.83193277310924,
+            "heldOutYearsPctPredictedPositive": 79.83193277310924,
             "zeroPredSharePct": 0.0,
             "inSamplePct": 79.83193277310924,
             "n": 119
@@ -722,34 +984,34 @@
         "note": "Aqua's overpass has drifted later since 2021 to 2022; model fitted 2012-2021 applied to later years; diagnostic only",
         "aoiErrorByYearFromDriftStart": {
           "2022": {
-            "median_ape_pct": 32.037815126050404,
-            "bias_pct": 19.994637770364445,
+            "median_ape_pct": 40.39464954864375,
+            "bias_pct": 17.027133982493847,
             "n_aoi_months": 2215
           },
           "2023": {
-            "median_ape_pct": 19.139439840609658,
-            "bias_pct": 5.46208584556498,
+            "median_ape_pct": 18.382193983302013,
+            "bias_pct": 3.604309699920022,
             "n_aoi_months": 2201
           },
           "2024": {
-            "median_ape_pct": 22.180451127819545,
-            "bias_pct": 26.93975567421802,
+            "median_ape_pct": 28.912035949043013,
+            "bias_pct": 23.1902635375768,
             "n_aoi_months": 2257
           },
           "2025": {
-            "median_ape_pct": 26.397854246733445,
-            "bias_pct": 15.884802180400264,
+            "median_ape_pct": 35.58086838834046,
+            "bias_pct": 13.125736235303693,
             "n_aoi_months": 2170
           },
           "2026": {
-            "median_ape_pct": 34.62678721024314,
-            "bias_pct": 5.288981346099145,
+            "median_ape_pct": 53.09941520467836,
+            "bias_pct": 0.6841613211883689,
             "n_aoi_months": 1338
           }
         },
         "cvMedianApeRangePct": [
-          15.663629135652752,
-          26.73137040456869
+          14.828863724502744,
+          24.838670425567095
         ]
       },
       "staticMask": {

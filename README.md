@@ -62,9 +62,11 @@ A region is one entry in `config/regions.json`; the app works for any area drawn
    static sources such as gas flares removed with a location mask built from standard-processing VIIRS data.
 3. **Grid.** Detections are summed into 0.25 degree cells by calendar month.
 4. **Harmonization.** MODIS counts from before VIIRS existed are converted to VIIRS-equivalent counts with a ratio fitted for
-   each calendar month on the 2012 to 2021 overlap. Four candidate models are compared by leaving each year out in turn. The
-   model used is the lowest-error one whose bias is within 15 percent. That rule was chosen after seeing first results, and the
-   validation output records this.
+   each calendar month and each level of MODIS activity (how many MODIS detections the surrounding 1 degree block had that
+   month) on the 2012 to 2021 overlap. Five candidate models are compared by leaving each year out in turn. The model used is
+   the lowest-error one whose bias is within 15 percent. That rule was chosen after seeing first results, and the activity
+   model was added after seeing Western North America's results, so its error is somewhat optimistic; the validation output
+   records both.
 5. **Intervals.** Each estimated number carries a range taken from the 10th to 90th percentile of actual over predicted counts in
    held-out years, set separately for areas of 1 to 2, 2 to 3 and 3 to 5 degrees and for the whole region. These are empirical
    ranges, not formal confidence intervals.
@@ -80,15 +82,17 @@ the pipeline is re-run.
 
 | Area (longer side) | Western North America | Zambia |
 |---|---|---|
-| 1 to 2 degrees | 100% | 21% |
-| 2 to 3 degrees | 56% | 20% |
-| 3 to 5 degrees | 42% | 18% |
-| Whole region | 12% | 11% |
-| Bias across sample areas | -0.6% | +1.8% |
+| 1 to 2 degrees | 99% | 20% |
+| 2 to 3 degrees | 58% | 18% |
+| 3 to 5 degrees | 39% | 17% |
+| Whole region | 9% | 10% |
+| Bias across sample areas | -0.8% | 0.0% |
 
-Accuracy is solid at region scale and weaker for small areas, especially where detections are few. For Western North America
-small areas the percentage swings widely; weighted by total detections the error is 10 to 27 percent. Interval coverage on
-held-out years is 76 to 81 percent against an 80 percent target.
+Accuracy is solid at region scale and weaker for small areas, especially where detections are few. Western North America has
+far fewer detections than Zambia (only 10 percent of its sample area-months have over 1,000, against 52 percent in Zambia),
+so its percentage errors stay above the 30 percent target for every area size except the whole region, and the app says so.
+For small areas the percentage swings widely; weighted by total detections the error is 9 to 24 percent. Interval coverage on held-out
+years is 76 to 81 percent against an 80 percent target.
 
 ## Limitations
 

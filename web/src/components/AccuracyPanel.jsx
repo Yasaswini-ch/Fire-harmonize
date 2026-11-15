@@ -11,7 +11,7 @@ const TIP = { contentStyle: { background: "#0c121e", border: "1px solid #3a4a63"
 const OK = "#5fd394";
 const WARN = "#f5b23a";
 const FIRE = "#ff8a3d";
-const MODEL_LABEL = { A: "A single ratio", B: "B log-linear", C: "C log-linear + month", D: "D ratio per month" };
+const MODEL_LABEL = { A: "A single ratio", B: "B log-linear", C: "C log-linear + month", D: "D ratio per month", E: "E ratio per month and activity" };
 
 const barFill = (v) => (v <= TARGET_PCT ? OK : WARN);
 

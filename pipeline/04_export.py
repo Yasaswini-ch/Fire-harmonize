@@ -28,7 +28,8 @@ THRESHOLDS = [0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000]  # min total detectio
 CELL_SIZE = 0.25
 MODEL_NAMES = {"A": "single multiplicative ratio", "B": "log1p linear fit",
                "C": "log1p linear fit with month-of-year offset",
-               "D": "ratio fitted separately for each calendar month"}
+               "D": "ratio fitted separately for each calendar month",
+               "E": "ratio fitted separately for each calendar month and level of MODIS activity"}
 SOURCE_PRODUCTS = [
     {"firmsSource": "MODIS_SP", "role": "Aqua only; estimated VIIRS-equivalent counts before February 2012"},
     {"firmsSource": "VIIRS_SNPP_SP", "role": "VIIRS 375 m reference series (Suomi NPP), standard processing"},
