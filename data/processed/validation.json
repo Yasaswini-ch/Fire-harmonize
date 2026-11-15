@@ -1,0 +1,1268 @@
+{
+  "western_na": {
+    "fit_window": [
+      "2012-02",
+      "2021-12"
+    ],
+    "n_cv_folds": 10,
+    "n_cells": 3480,
+    "drift": {
+      "cv_by_year": {
+        "2012": {
+          "median_ape_pct": 48.13365812849092,
+          "bias_pct": 6.546873746776528,
+          "n_aoi_months": 1917
+        },
+        "2013": {
+          "median_ape_pct": 50.73126846786913,
+          "bias_pct": 12.34994984009113,
+          "n_aoi_months": 2094
+        },
+        "2014": {
+          "median_ape_pct": 49.582400193131996,
+          "bias_pct": 8.236222614267417,
+          "n_aoi_months": 2120
+        },
+        "2015": {
+          "median_ape_pct": 43.47842035207916,
+          "bias_pct": -4.9703010276886745,
+          "n_aoi_months": 2100
+        },
+        "2016": {
+          "median_ape_pct": 44.64511770341284,
+          "bias_pct": 5.597152541791997,
+          "n_aoi_months": 2079
+        },
+        "2017": {
+          "median_ape_pct": 41.65138395494094,
+          "bias_pct": 2.555522423257783,
+          "n_aoi_months": 2060
+        },
+        "2018": {
+          "median_ape_pct": 39.59161458387178,
+          "bias_pct": 7.5646682353797,
+          "n_aoi_months": 2102
+        },
+        "2019": {
+          "median_ape_pct": 51.71481572559698,
+          "bias_pct": 14.413306756226913,
+          "n_aoi_months": 2084
+        },
+        "2020": {
+          "median_ape_pct": 41.68073268317079,
+          "bias_pct": -15.11923967427047,
+          "n_aoi_months": 2131
+        },
+        "2021": {
+          "median_ape_pct": 40.59266452240813,
+          "bias_pct": -3.745077322871469,
+          "n_aoi_months": 2126
+        }
+      },
+      "fitted_model_on_drift_years": {
+        "2022": {
+          "median_ape_pct": 56.68299543172124,
+          "bias_pct": 1.0299032687857805,
+          "n_aoi_months": 2099
+        },
+        "2023": {
+          "median_ape_pct": 44.032867763604216,
+          "bias_pct": 3.9803696467327714,
+          "n_aoi_months": 2091
+        },
+        "2024": {
+          "median_ape_pct": 42.888669082347974,
+          "bias_pct": 16.02536766062028,
+          "n_aoi_months": 2126
+        },
+        "2025": {
+          "median_ape_pct": 42.04103898916148,
+          "bias_pct": 7.007465669061716,
+          "n_aoi_months": 2145
+        },
+        "2026": {
+          "median_ape_pct": 52.87624595515671,
+          "bias_pct": 0.3374089132014189,
+          "n_aoi_months": 1248
+        }
+      },
+      "note": "diagnostic only: Aqua free drift since Dec 2021; nothing is tuned to this"
+    },
+    "bridge_noaa20_vs_snpp": {
+      "overlap": [
+        "2018-05",
+        "2026-07"
+      ],
+      "n_months": 99,
+      "region_monthly_ratio": {
+        "2018-05": 1.006,
+        "2018-06": 0.9794,
+        "2018-07": 0.8529,
+        "2018-08": 0.9569,
+        "2018-09": 1.0029,
+        "2018-10": 0.9787,
+        "2018-11": 0.9747,
+        "2018-12": 1.0154,
+        "2019-01": 0.9503,
+        "2019-02": 1.035,
+        "2019-03": 1.0279,
+        "2019-04": 1.0321,
+        "2019-05": 1.0686,
+        "2019-06": 0.8922,
+        "2019-07": 1.0696,
+        "2019-08": 1.0401,
+        "2019-09": 0.928,
+        "2019-10": 1.0158,
+        "2019-11": 0.988,
+        "2019-12": 0.9609,
+        "2020-01": 0.9529,
+        "2020-02": 0.9856,
+        "2020-03": 0.9504,
+        "2020-04": 0.9902,
+        "2020-05": 1.119,
+        "2020-06": 0.957,
+        "2020-07": 0.9689,
+        "2020-08": 1.0276,
+        "2020-09": 0.9814,
+        "2020-10": 0.9603,
+        "2020-11": 1.0443,
+        "2020-12": 0.9436,
+        "2021-01": 0.9775,
+        "2021-02": 1.0331,
+        "2021-03": 1.005,
+        "2021-04": 0.9364,
+        "2021-05": 1.0346,
+        "2021-06": 0.8484,
+        "2021-07": 0.9951,
+        "2021-08": 1.0236,
+        "2021-09": 0.967,
+        "2021-10": 0.9637,
+        "2021-11": 1.025,
+        "2021-12": 1.0444,
+        "2022-01": 1.0239,
+        "2022-02": 1.0463,
+        "2022-03": 0.9354,
+        "2022-04": 1.0186,
+        "2022-05": 0.9308,
+        "2022-06": 0.8666,
+        "2022-07": 1.4968,
+        "2022-08": 1.4941,
+        "2022-09": 0.9523,
+        "2022-10": 0.9975,
+        "2022-11": 0.9764,
+        "2022-12": 0.9756,
+        "2023-01": 1.0849,
+        "2023-02": 1.0566,
+        "2023-03": 0.9625,
+        "2023-04": 0.9695,
+        "2023-05": 0.9635,
+        "2023-06": 1.0252,
+        "2023-07": 0.7798,
+        "2023-08": 0.9739,
+        "2023-09": 0.9957,
+        "2023-10": 0.9981,
+        "2023-11": 1.0271,
+        "2023-12": 1.0116,
+        "2024-01": 0.9842,
+        "2024-02": 0.9778,
+        "2024-03": 0.8565,
+        "2024-04": 0.9938,
+        "2024-05": 0.9996,
+        "2024-06": 0.9265,
+        "2024-07": 2.026,
+        "2024-08": 0.9832,
+        "2024-09": 1.02,
+        "2024-10": 0.9746,
+        "2024-11": 1.1265,
+        "2024-12": 1.0172,
+        "2025-01": 1.0679,
+        "2025-02": 1.0148,
+        "2025-03": 1.0609,
+        "2025-04": 0.9807,
+        "2025-05": 0.9511,
+        "2025-06": 1.0301,
+        "2025-07": 0.9927,
+        "2025-08": 1.0461,
+        "2025-09": 0.9685,
+        "2025-10": 1.0334,
+        "2025-11": 1.0058,
+        "2025-12": 0.9173,
+        "2026-01": 0.9978,
+        "2026-02": 0.9392,
+        "2026-03": 1.1673,
+        "2026-04": 1.1343,
+        "2026-05": 0.9262,
+        "2026-06": 1.0108,
+        "2026-07": 0.9993
+      },
+      "region_ratio_median": 0.9950788882999261,
+      "aoi_median_ratio": 1.0,
+      "n_aoi_months": 17478,
+      "recent_months": [
+        "2026-02",
+        "2026-07"
+      ],
+      "recent_ratio_median": 1.0050327829188288,
+      "recent_outside_tolerance": false,
+      "scale_applied": 1.0
+    },
+    "models": {
+      "A": {
+        "cell": {
+          "rmse": 22.523897665311374,
+          "mae": 2.0413967749565303,
+          "r2_log1p": 0.554178628419944
+        },
+        "region": {
+          "mape_pct": 38.31379817900697,
+          "bias_pct": -0.4556801620033804
+        },
+        "aoi": {
+          "median_ape_pct": 60.447796340183544,
+          "bias_pct": -1.375849926047978,
+          "n_aoi_months": 20813
+        }
+      },
+      "B": {
+        "cell": {
+          "rmse": 136.95972395033934,
+          "mae": 4.002309630583995,
+          "r2_log1p": 0.6519769623442772
+        },
+        "region": {
+          "mape_pct": 28.41591058506385,
+          "bias_pct": 43.17462292013709
+        },
+        "aoi": {
+          "median_ape_pct": 44.682868181557055,
+          "bias_pct": 51.69630619062313,
+          "n_aoi_months": 20813
+        }
+      },
+      "C": {
+        "cell": {
+          "rmse": 122.98130884923818,
+          "mae": 3.689413032255777,
+          "r2_log1p": 0.657133057078383
+        },
+        "region": {
+          "mape_pct": 27.10702035853179,
+          "bias_pct": 35.98381585698235
+        },
+        "aoi": {
+          "median_ape_pct": 43.99534909696538,
+          "bias_pct": 43.82757030798733,
+          "n_aoi_months": 20813
+        }
+      },
+      "D": {
+        "cell": {
+          "rmse": 21.72251614217284,
+          "mae": 1.859106669377216,
+          "r2_log1p": 0.5864226824022344
+        },
+        "region": {
+          "mape_pct": 14.418907670578049,
+          "bias_pct": -0.7439937103071671
+        },
+        "aoi": {
+          "median_ape_pct": 45.0674743892829,
+          "bias_pct": -0.5683637841193431,
+          "n_aoi_months": 20813
+        }
+      }
+    },
+    "chosen_model": "D",
+    "params": {
+      "ratios": [
+        5.110419906687403,
+        4.904858987427795,
+        4.947672817405674,
+        5.004541701073493,
+        5.760609911054638,
+        7.016093880972338,
+        8.700345102203345,
+        9.454200440425431,
+        9.398033823978722,
+        6.867488765806249,
+        7.437243785433929,
+        7.161813057773602
+      ],
+      "r": 8.598274427659835
+    },
+    "model_selection": {
+      "rule": "Keep the candidate models whose AOI-level bias is within +/-15 percent, then choose the lowest median AOI-level error among them. If none qualifies, choose the lowest absolute bias and warn.",
+      "max_abs_bias_pct": 15.0,
+      "candidates": [
+        {
+          "model": "A",
+          "name": "ratio",
+          "median_ape_pct": 60.447796340183544,
+          "bias_pct": -1.375849926047978,
+          "qualifies": true
+        },
+        {
+          "model": "B",
+          "name": "log1p linear",
+          "median_ape_pct": 44.682868181557055,
+          "bias_pct": 51.69630619062313,
+          "qualifies": false
+        },
+        {
+          "model": "C",
+          "name": "log1p linear + month offset",
+          "median_ape_pct": 43.99534909696538,
+          "bias_pct": 43.82757030798733,
+          "qualifies": false
+        },
+        {
+          "model": "D",
+          "name": "ratio per calendar month",
+          "median_ape_pct": 45.0674743892829,
+          "bias_pct": -0.5683637841193431,
+          "qualifies": true
+        }
+      ],
+      "chosen": "D",
+      "none_qualified": false,
+      "note": "This rule was set after seeing the first cross-validation results, in which the earlier rule (lowest error, simpler model preferred within 5 percent) chose a model with a large bias. It was not fixed in advance, so the reported errors are not those of a pre-registered choice."
+    },
+    "size_classes": [
+      {
+        "id": "1-2",
+        "label": "1 to 2 degrees",
+        "min_deg": 1.0,
+        "max_deg": 2.0,
+        "n_aois": 12,
+        "median_ape_pct": 100.0,
+        "bias_pct": 5.819062448481108,
+        "count_weighted_error_pct": 27.34611360820777,
+        "median_actual_count_nonzero": 15.0,
+        "median_actual_count_all": 6.0,
+        "n_pairs": 1071,
+        "n_nonzero": 765,
+        "lo_mult_by_month": [
+          0.2774,
+          0.2774,
+          0.4088,
+          0.2391,
+          0.4432,
+          0.1102,
+          0.3069,
+          0.3329,
+          0.2978,
+          0.3933,
+          0.1878,
+          0.2774
+        ],
+        "hi_mult_by_month": [
+          2.1019,
+          2.1019,
+          1.9922,
+          2.2188,
+          2.9374,
+          1.8882,
+          2.6148,
+          1.7707,
+          1.2606,
+          1.728,
+          2.121,
+          2.1019
+        ],
+        "multipliers_are_pooled_fallback": false,
+        "zero_pred_hi_count": 9.0,
+        "coverage": {
+          "in_sample_pct": 78.9405684754522,
+          "held_out_years_pct": 78.29457364341086,
+          "held_out_years_pct_predicted_positive": 77.73359840954275,
+          "zero_pred_share_pct": 35.42483660130719,
+          "n": 774,
+          "target_pct": 80.0
+        }
+      },
+      {
+        "id": "2-3",
+        "label": "2 to 3 degrees",
+        "min_deg": 2.0,
+        "max_deg": 3.0,
+        "n_aois": 32,
+        "median_ape_pct": 56.41339869281046,
+        "bias_pct": -2.4904771890362585,
+        "count_weighted_error_pct": 19.43209616836805,
+        "median_actual_count_nonzero": 33.0,
+        "median_actual_count_all": 23.0,
+        "n_pairs": 3689,
+        "n_nonzero": 3217,
+        "lo_mult_by_month": [
+          0.3722,
+          0.4879,
+          0.494,
+          0.5078,
+          0.5321,
+          0.4003,
+          0.3433,
+          0.4625,
+          0.3219,
+          0.4275,
+          0.3726,
+          0.4928
+        ],
+        "hi_mult_by_month": [
+          2.5612,
+          2.1649,
+          2.5537,
+          2.4635,
+          3.1814,
+          2.3349,
+          1.8761,
+          1.5042,
+          1.5217,
+          1.8735,
+          2.2216,
+          2.8789
+        ],
+        "multipliers_are_pooled_fallback": false,
+        "zero_pred_hi_count": 13.0,
+        "coverage": {
+          "in_sample_pct": 81.03501704369384,
+          "held_out_years_pct": 79.91942981096994,
+          "held_out_years_pct_predicted_positive": 78.27684769293589,
+          "zero_pred_share_pct": 24.184022381100405,
+          "n": 3227,
+          "target_pct": 80.0
+        }
+      },
+      {
+        "id": "3-5",
+        "label": "3 to 5 degrees",
+        "min_deg": 3.0,
+        "max_deg": 5.0,
+        "n_aois": 156,
+        "median_ape_pct": 41.987971956426215,
+        "bias_pct": -0.4425852659319864,
+        "count_weighted_error_pct": 16.356339955171187,
+        "median_actual_count_nonzero": 79.0,
+        "median_actual_count_all": 66.0,
+        "n_pairs": 17969,
+        "n_nonzero": 16831,
+        "lo_mult_by_month": [
+          0.4004,
+          0.525,
+          0.5348,
+          0.6123,
+          0.5069,
+          0.4093,
+          0.5482,
+          0.5595,
+          0.3938,
+          0.5301,
+          0.488,
+          0.5056
+        ],
+        "hi_mult_by_month": [
+          3.6025,
+          2.6817,
+          2.8898,
+          2.2886,
+          2.4939,
+          1.9562,
+          1.3986,
+          1.3166,
+          1.2626,
+          1.7396,
+          2.0087,
+          3.0649
+        ],
+        "multipliers_are_pooled_fallback": false,
+        "zero_pred_hi_count": 18.0,
+        "coverage": {
+          "in_sample_pct": 81.07435076485237,
+          "held_out_years_pct": 80.66524368552116,
+          "held_out_years_pct_predicted_positive": 79.50169875424689,
+          "zero_pred_share_pct": 16.2676014497059,
+          "n": 16866,
+          "target_pct": 80.0
+        }
+      },
+      {
+        "id": "region",
+        "label": "whole region",
+        "min_deg": 20.0,
+        "max_deg": 20.0,
+        "n_aois": 1,
+        "median_ape_pct": 11.98249481745332,
+        "bias_pct": -0.7439937103071671,
+        "count_weighted_error_pct": 10.450249806771943,
+        "median_actual_count_nonzero": 3615.0,
+        "median_actual_count_all": 3615.0,
+        "n_pairs": 119,
+        "n_nonzero": 119,
+        "lo_mult_by_month": [
+          0.7948,
+          0.7948,
+          0.7948,
+          0.7948,
+          0.7948,
+          0.7948,
+          0.7948,
+          0.7948,
+          0.7948,
+          0.7948,
+          0.7948,
+          0.7948
+        ],
+        "hi_mult_by_month": [
+          1.2096,
+          1.2096,
+          1.2096,
+          1.2096,
+          1.2096,
+          1.2096,
+          1.2096,
+          1.2096,
+          1.2096,
+          1.2096,
+          1.2096,
+          1.2096
+        ],
+        "multipliers_are_pooled_fallback": false,
+        "zero_pred_hi_count": 0.0,
+        "coverage": {
+          "in_sample_pct": 79.83193277310924,
+          "held_out_years_pct": 80.67226890756302,
+          "held_out_years_pct_predicted_positive": 80.67226890756302,
+          "zero_pred_share_pct": 0.0,
+          "n": 119,
+          "target_pct": 80.0
+        }
+      }
+    ],
+    "coverage_target_pct": 80.0,
+    "lo_mult_by_month": [
+      0.3988,
+      0.5144,
+      0.5277,
+      0.5968,
+      0.507,
+      0.3878,
+      0.4894,
+      0.5287,
+      0.3752,
+      0.5138,
+      0.4627,
+      0.4926
+    ],
+    "hi_mult_by_month": [
+      3.4002,
+      2.6705,
+      2.794,
+      2.3172,
+      2.5909,
+      2.0344,
+      1.4788,
+      1.3545,
+      1.2708,
+      1.76,
+      2.0263,
+      3.0506
+    ],
+    "interval_note": "empirical 10-90 percentile of actual/predicted over cross-validated AOI-months (200 rectangles of 1-5 deg); not a formal confidence interval",
+    "continuity_2012_2013_mean_pct_diff": 12.655462914427915,
+    "largest_months": [
+      {
+        "month": "2020-09",
+        "total": 202657.0,
+        "source": "viirs_native",
+        "provisional": false
+      },
+      {
+        "month": "2021-08",
+        "total": 166681.0,
+        "source": "viirs_native",
+        "provisional": false
+      },
+      {
+        "month": "2021-07",
+        "total": 152811.0,
+        "source": "viirs_native",
+        "provisional": false
+      },
+      {
+        "month": "2015-08",
+        "total": 133356.0,
+        "source": "viirs_native",
+        "provisional": false
+      },
+      {
+        "month": "2018-08",
+        "total": 122621.0,
+        "source": "viirs_native",
+        "provisional": false
+      }
+    ],
+    "largest_years": [
+      {
+        "month": 2021,
+        "total": 433889.0,
+        "n_months": 12
+      },
+      {
+        "month": 2020,
+        "total": 334055.0,
+        "n_months": 12
+      },
+      {
+        "month": 2017,
+        "total": 319485.0,
+        "n_months": 12
+      },
+      {
+        "month": 2007,
+        "total": 229200.6,
+        "n_months": 12
+      },
+      {
+        "month": 2018,
+        "total": 225719.0,
+        "n_months": 12
+      }
+    ],
+    "warnings": [
+      "AOI median error 45.1% > 30%"
+    ],
+    "assumption": "MODIS->VIIRS relationship fitted on 2012-2021 assumed to hold for 2002-2011"
+  },
+  "zambia": {
+    "fit_window": [
+      "2012-02",
+      "2021-12"
+    ],
+    "n_cv_folds": 10,
+    "n_cells": 1921,
+    "drift": {
+      "cv_by_year": {
+        "2012": {
+          "median_ape_pct": 17.58297434253496,
+          "bias_pct": 1.9116327198229344,
+          "n_aoi_months": 2099
+        },
+        "2013": {
+          "median_ape_pct": 18.51078520728034,
+          "bias_pct": -0.3337181680292184,
+          "n_aoi_months": 2253
+        },
+        "2014": {
+          "median_ape_pct": 17.6937441643324,
+          "bias_pct": 6.336956279539732,
+          "n_aoi_months": 2179
+        },
+        "2015": {
+          "median_ape_pct": 18.31548301027571,
+          "bias_pct": 6.876656189538758,
+          "n_aoi_months": 2211
+        },
+        "2016": {
+          "median_ape_pct": 15.663629135652752,
+          "bias_pct": 3.1717636985193014,
+          "n_aoi_months": 2215
+        },
+        "2017": {
+          "median_ape_pct": 19.775031477615762,
+          "bias_pct": 10.093565877584856,
+          "n_aoi_months": 2102
+        },
+        "2018": {
+          "median_ape_pct": 18.724240666400295,
+          "bias_pct": 1.90004979849778,
+          "n_aoi_months": 2194
+        },
+        "2019": {
+          "median_ape_pct": 17.48749337397292,
+          "bias_pct": -1.0224274977820296,
+          "n_aoi_months": 2239
+        },
+        "2020": {
+          "median_ape_pct": 26.73137040456869,
+          "bias_pct": -11.798931110081822,
+          "n_aoi_months": 2163
+        },
+        "2021": {
+          "median_ape_pct": 17.964782566397513,
+          "bias_pct": -0.2045127926523103,
+          "n_aoi_months": 2171
+        }
+      },
+      "fitted_model_on_drift_years": {
+        "2022": {
+          "median_ape_pct": 32.037815126050404,
+          "bias_pct": 19.994637770364445,
+          "n_aoi_months": 2215
+        },
+        "2023": {
+          "median_ape_pct": 19.139439840609658,
+          "bias_pct": 5.46208584556498,
+          "n_aoi_months": 2201
+        },
+        "2024": {
+          "median_ape_pct": 22.180451127819545,
+          "bias_pct": 26.93975567421802,
+          "n_aoi_months": 2257
+        },
+        "2025": {
+          "median_ape_pct": 26.397854246733445,
+          "bias_pct": 15.884802180400264,
+          "n_aoi_months": 2170
+        },
+        "2026": {
+          "median_ape_pct": 34.62678721024314,
+          "bias_pct": 5.288981346099145,
+          "n_aoi_months": 1338
+        }
+      },
+      "note": "diagnostic only: Aqua free drift since Dec 2021; nothing is tuned to this"
+    },
+    "bridge_noaa20_vs_snpp": {
+      "overlap": [
+        "2018-05",
+        "2026-07"
+      ],
+      "n_months": 99,
+      "region_monthly_ratio": {
+        "2018-05": 0.9637,
+        "2018-06": 0.9996,
+        "2018-07": 0.9491,
+        "2018-08": 0.957,
+        "2018-09": 0.9683,
+        "2018-10": 0.9537,
+        "2018-11": 1.0353,
+        "2018-12": 1.165,
+        "2019-01": 0.8454,
+        "2019-02": 1.0,
+        "2019-03": 0.9909,
+        "2019-04": 0.9288,
+        "2019-05": 1.0115,
+        "2019-06": 0.9937,
+        "2019-07": 1.0017,
+        "2019-08": 0.9373,
+        "2019-09": 1.0015,
+        "2019-10": 0.9924,
+        "2019-11": 0.9444,
+        "2019-12": 0.8568,
+        "2020-01": 1.0909,
+        "2020-02": 1.1731,
+        "2020-03": 0.9346,
+        "2020-04": 1.0177,
+        "2020-05": 0.98,
+        "2020-06": 1.0201,
+        "2020-07": 0.9847,
+        "2020-08": 1.0068,
+        "2020-09": 0.9707,
+        "2020-10": 0.9825,
+        "2020-11": 1.0448,
+        "2020-12": 1.1408,
+        "2021-01": 0.9524,
+        "2021-02": 0.9762,
+        "2021-03": 1.06,
+        "2021-04": 1.0071,
+        "2021-05": 1.0029,
+        "2021-06": 0.998,
+        "2021-07": 0.9889,
+        "2021-08": 0.9904,
+        "2021-09": 0.993,
+        "2021-10": 0.9872,
+        "2021-11": 0.9489,
+        "2021-12": 0.9641,
+        "2022-01": 1.3551,
+        "2022-02": 1.25,
+        "2022-03": 1.008,
+        "2022-04": 0.9201,
+        "2022-05": 1.0249,
+        "2022-06": 1.0145,
+        "2022-07": 1.3416,
+        "2022-08": 1.4545,
+        "2022-09": 0.9443,
+        "2022-10": 0.9705,
+        "2022-11": 1.0242,
+        "2022-12": 0.8953,
+        "2023-01": 0.5495,
+        "2023-02": 0.9341,
+        "2023-03": 0.9077,
+        "2023-04": 1.0041,
+        "2023-05": 0.9918,
+        "2023-06": 0.9731,
+        "2023-07": 0.932,
+        "2023-08": 0.984,
+        "2023-09": 0.9615,
+        "2023-10": 0.9129,
+        "2023-11": 1.0278,
+        "2023-12": 1.0702,
+        "2024-01": 1.2531,
+        "2024-02": 0.87,
+        "2024-03": 0.963,
+        "2024-04": 0.925,
+        "2024-05": 1.0897,
+        "2024-06": 1.0889,
+        "2024-07": 1.8297,
+        "2024-08": 0.9684,
+        "2024-09": 1.0323,
+        "2024-10": 0.9788,
+        "2024-11": 1.3333,
+        "2024-12": 0.9222,
+        "2025-01": 0.8925,
+        "2025-02": 0.9366,
+        "2025-03": 0.871,
+        "2025-04": 0.9348,
+        "2025-05": 1.032,
+        "2025-06": 0.9588,
+        "2025-07": 1.0889,
+        "2025-08": 0.9608,
+        "2025-09": 0.9921,
+        "2025-10": 0.9895,
+        "2025-11": 0.9277,
+        "2025-12": 1.0235,
+        "2026-01": 1.0497,
+        "2026-02": 1.0409,
+        "2026-03": 1.1881,
+        "2026-04": 1.5059,
+        "2026-05": 0.993,
+        "2026-06": 1.0154,
+        "2026-07": 1.239
+      },
+      "region_ratio_median": 0.9917673029476691,
+      "aoi_median_ratio": 0.9977152624642807,
+      "n_aoi_months": 18286,
+      "recent_months": [
+        "2026-02",
+        "2026-07"
+      ],
+      "recent_ratio_median": 1.1144996575129211,
+      "recent_outside_tolerance": true,
+      "scale_applied": 1.0
+    },
+    "models": {
+      "A": {
+        "cell": {
+          "rmse": 29.80779769562101,
+          "mae": 10.214377530611706,
+          "r2_log1p": 0.8635350776104345
+        },
+        "region": {
+          "mape_pct": 34.85568614424895,
+          "bias_pct": 0.044640397011017005
+        },
+        "aoi": {
+          "median_ape_pct": 33.121271872965494,
+          "bias_pct": 1.553353599531088,
+          "n_aoi_months": 21826
+        }
+      },
+      "B": {
+        "cell": {
+          "rmse": 76.9193495412352,
+          "mae": 19.290756281568683,
+          "r2_log1p": 0.8543187910035724
+        },
+        "region": {
+          "mape_pct": 225.98355506811,
+          "bias_pct": 28.023686838272045
+        },
+        "aoi": {
+          "median_ape_pct": 51.883305049447635,
+          "bias_pct": 32.31511987366442,
+          "n_aoi_months": 21826
+        }
+      },
+      "C": {
+        "cell": {
+          "rmse": 63.0546142247838,
+          "mae": 16.410707771893225,
+          "r2_log1p": 0.8703497789957789
+        },
+        "region": {
+          "mape_pct": 35.296324814032126,
+          "bias_pct": 20.321231399444386
+        },
+        "aoi": {
+          "median_ape_pct": 38.02469837670667,
+          "bias_pct": 23.88866170733652,
+          "n_aoi_months": 21826
+        }
+      },
+      "D": {
+        "cell": {
+          "rmse": 27.6213897068644,
+          "mae": 9.365088141481404,
+          "r2_log1p": 0.8644816165399029
+        },
+        "region": {
+          "mape_pct": 22.77978460348877,
+          "bias_pct": 0.15833380668408517
+        },
+        "aoi": {
+          "median_ape_pct": 18.533094555843356,
+          "bias_pct": 1.7512275583670127,
+          "n_aoi_months": 21826
+        }
+      }
+    },
+    "chosen_model": "D",
+    "params": {
+      "ratios": [
+        14.964285714285714,
+        13.780303030303031,
+        8.214285714285714,
+        6.2777628394729765,
+        5.004026816420704,
+        4.136832028830452,
+        4.513879912304047,
+        5.178650959492814,
+        5.886360907117454,
+        7.854935274086277,
+        14.587145518526185,
+        16.838422391857506
+      ],
+      "r": 5.289613313839226
+    },
+    "model_selection": {
+      "rule": "Keep the candidate models whose AOI-level bias is within +/-15 percent, then choose the lowest median AOI-level error among them. If none qualifies, choose the lowest absolute bias and warn.",
+      "max_abs_bias_pct": 15.0,
+      "candidates": [
+        {
+          "model": "A",
+          "name": "ratio",
+          "median_ape_pct": 33.121271872965494,
+          "bias_pct": 1.553353599531088,
+          "qualifies": true
+        },
+        {
+          "model": "B",
+          "name": "log1p linear",
+          "median_ape_pct": 51.883305049447635,
+          "bias_pct": 32.31511987366442,
+          "qualifies": false
+        },
+        {
+          "model": "C",
+          "name": "log1p linear + month offset",
+          "median_ape_pct": 38.02469837670667,
+          "bias_pct": 23.88866170733652,
+          "qualifies": false
+        },
+        {
+          "model": "D",
+          "name": "ratio per calendar month",
+          "median_ape_pct": 18.533094555843356,
+          "bias_pct": 1.7512275583670127,
+          "qualifies": true
+        }
+      ],
+      "chosen": "D",
+      "none_qualified": false,
+      "note": "This rule was set after seeing the first cross-validation results, in which the earlier rule (lowest error, simpler model preferred within 5 percent) chose a model with a large bias. It was not fixed in advance, so the reported errors are not those of a pre-registered choice."
+    },
+    "size_classes": [
+      {
+        "id": "1-2",
+        "label": "1 to 2 degrees",
+        "min_deg": 1.0,
+        "max_deg": 2.0,
+        "n_aois": 12,
+        "median_ape_pct": 21.040716237633315,
+        "bias_pct": -1.9470123109686002,
+        "count_weighted_error_pct": 13.39939624295231,
+        "median_actual_count_nonzero": 691.0,
+        "median_actual_count_all": 133.5,
+        "n_pairs": 1428,
+        "n_nonzero": 1101,
+        "lo_mult_by_month": [
+          0.7215,
+          0.7215,
+          0.7215,
+          0.5315,
+          0.7872,
+          0.9183,
+          0.8779,
+          0.8296,
+          0.8508,
+          0.8363,
+          0.6314,
+          0.2752
+        ],
+        "hi_mult_by_month": [
+          1.6254,
+          1.6254,
+          1.6254,
+          2.2324,
+          1.3724,
+          1.2779,
+          1.2059,
+          1.4267,
+          1.4643,
+          1.8651,
+          2.9606,
+          2.0184
+        ],
+        "multipliers_are_pooled_fallback": false,
+        "zero_pred_hi_count": 8.0,
+        "coverage": {
+          "in_sample_pct": 77.53623188405797,
+          "held_out_years_pct": 76.26811594202898,
+          "held_out_years_pct_predicted_positive": 76.53631284916202,
+          "zero_pred_share_pct": 18.982742960944595,
+          "n": 1104,
+          "target_pct": 80.0
+        }
+      },
+      {
+        "id": "2-3",
+        "label": "2 to 3 degrees",
+        "min_deg": 2.0,
+        "max_deg": 3.0,
+        "n_aois": 32,
+        "median_ape_pct": 19.866247807337505,
+        "bias_pct": 1.2301565978322195,
+        "count_weighted_error_pct": 12.768795971024392,
+        "median_actual_count_nonzero": 991.0,
+        "median_actual_count_all": 260.5,
+        "n_pairs": 3808,
+        "n_nonzero": 3138,
+        "lo_mult_by_month": [
+          0.0,
+          0.0,
+          0.2474,
+          0.6131,
+          0.826,
+          0.8946,
+          0.8585,
+          0.8203,
+          0.8404,
+          0.7863,
+          0.6342,
+          0.2901
+        ],
+        "hi_mult_by_month": [
+          1.5751,
+          1.4583,
+          1.9662,
+          2.9044,
+          1.301,
+          1.176,
+          1.1588,
+          1.2968,
+          1.2922,
+          1.4697,
+          1.6492,
+          1.9088
+        ],
+        "multipliers_are_pooled_fallback": false,
+        "zero_pred_hi_count": 13.0,
+        "coverage": {
+          "in_sample_pct": 79.96207332490518,
+          "held_out_years_pct": 77.9709228824273,
+          "held_out_years_pct_predicted_positive": 78.02114803625378,
+          "zero_pred_share_pct": 16.44359464627151,
+          "n": 3164,
+          "target_pct": 80.0
+        }
+      },
+      {
+        "id": "3-5",
+        "label": "3 to 5 degrees",
+        "min_deg": 3.0,
+        "max_deg": 5.0,
+        "n_aois": 156,
+        "median_ape_pct": 18.13337194034245,
+        "bias_pct": 1.8501148213679353,
+        "count_weighted_error_pct": 11.265675688669072,
+        "median_actual_count_nonzero": 1467.0,
+        "median_actual_count_all": 1072.5,
+        "n_pairs": 18564,
+        "n_nonzero": 17587,
+        "lo_mult_by_month": [
+          0.0687,
+          0.0718,
+          0.4912,
+          0.7195,
+          0.8544,
+          0.9065,
+          0.8735,
+          0.8339,
+          0.8593,
+          0.8031,
+          0.6654,
+          0.4079
+        ],
+        "hi_mult_by_month": [
+          2.6027,
+          1.5217,
+          2.4561,
+          2.8818,
+          1.3093,
+          1.2035,
+          1.1669,
+          1.3751,
+          1.2409,
+          1.3941,
+          1.6876,
+          2.0104
+        ],
+        "multipliers_are_pooled_fallback": false,
+        "zero_pred_hi_count": 18.0,
+        "coverage": {
+          "in_sample_pct": 80.77729307121409,
+          "held_out_years_pct": 78.8623874001473,
+          "held_out_years_pct_predicted_positive": 77.87513691128149,
+          "zero_pred_share_pct": 12.111218513674874,
+          "n": 17651,
+          "target_pct": 80.0
+        }
+      },
+      {
+        "id": "region",
+        "label": "whole region",
+        "min_deg": 12.0,
+        "max_deg": 12.0,
+        "n_aois": 1,
+        "median_ape_pct": 11.304029283341807,
+        "bias_pct": 0.15833380668408517,
+        "count_weighted_error_pct": 7.104397859584831,
+        "median_actual_count_nonzero": 15718.0,
+        "median_actual_count_all": 15718.0,
+        "n_pairs": 119,
+        "n_nonzero": 119,
+        "lo_mult_by_month": [
+          0.7587,
+          0.7587,
+          0.7587,
+          0.7587,
+          0.7587,
+          0.7587,
+          0.7587,
+          0.7587,
+          0.7587,
+          0.7587,
+          0.7587,
+          0.7587
+        ],
+        "hi_mult_by_month": [
+          1.4915,
+          1.4915,
+          1.4915,
+          1.4915,
+          1.4915,
+          1.4915,
+          1.4915,
+          1.4915,
+          1.4915,
+          1.4915,
+          1.4915,
+          1.4915
+        ],
+        "multipliers_are_pooled_fallback": false,
+        "zero_pred_hi_count": 0.0,
+        "coverage": {
+          "in_sample_pct": 79.83193277310924,
+          "held_out_years_pct": 78.99159663865547,
+          "held_out_years_pct_predicted_positive": 78.99159663865547,
+          "zero_pred_share_pct": 0.0,
+          "n": 119,
+          "target_pct": 80.0
+        }
+      }
+    ],
+    "coverage_target_pct": 80.0,
+    "lo_mult_by_month": [
+      0.0669,
+      0.0718,
+      0.489,
+      0.6918,
+      0.8466,
+      0.9056,
+      0.8727,
+      0.8315,
+      0.8559,
+      0.802,
+      0.6564,
+      0.3773
+    ],
+    "hi_mult_by_month": [
+      2.5343,
+      1.5241,
+      2.439,
+      2.8788,
+      1.313,
+      1.2064,
+      1.1672,
+      1.3684,
+      1.2564,
+      1.4178,
+      1.7033,
+      2.0103
+    ],
+    "interval_note": "empirical 10-90 percentile of actual/predicted over cross-validated AOI-months (200 rectangles of 1-5 deg); not a formal confidence interval",
+    "continuity_2012_2013_mean_pct_diff": -12.925835284831228,
+    "largest_months": [
+      {
+        "month": "2026-08",
+        "total": 378993.0,
+        "source": "viirs_native",
+        "provisional": true
+      },
+      {
+        "month": "2008-09",
+        "total": 285694.5,
+        "source": "modis_estimated",
+        "provisional": false
+      },
+      {
+        "month": "2025-08",
+        "total": 274386.0,
+        "source": "viirs_native",
+        "provisional": false
+      },
+      {
+        "month": "2018-08",
+        "total": 261181.0,
+        "source": "viirs_native",
+        "provisional": false
+      },
+      {
+        "month": "2026-07",
+        "total": 259573.0,
+        "source": "viirs_native",
+        "provisional": false
+      }
+    ],
+    "largest_years": [
+      {
+        "month": 2026,
+        "total": 1234099.0,
+        "n_months": 11
+      },
+      {
+        "month": 2012,
+        "total": 821196.5,
+        "n_months": 12
+      },
+      {
+        "month": 2008,
+        "total": 814720.8,
+        "n_months": 12
+      },
+      {
+        "month": 2013,
+        "total": 810119.0,
+        "n_months": 12
+      },
+      {
+        "month": 2010,
+        "total": 800612.2,
+        "n_months": 12
+      }
+    ],
+    "warnings": [
+      "NOAA-20 / S-NPP ratio over the latest 6 overlap months (2026-02 to 2026-07) is 1.11, outside 0.9 to 1.1: recent S-NPP months may undercount, so the S-NPP to NOAA-20 handover may add a step"
+    ],
+    "assumption": "MODIS->VIIRS relationship fitted on 2012-2021 assumed to hold for 2002-2011"
+  }
+}

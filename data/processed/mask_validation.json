@@ -1,0 +1,104 @@
+{
+  "regions": {
+    "western_na": {
+      "mask_source_rows": 1331794,
+      "mask_source_static_rows": 66136,
+      "mask_locations_exact": 1351,
+      "mask_locations_3x3": 7483,
+      "test_rows": 1495251,
+      "test_months": 84,
+      "test_static_share_pct": 4.96,
+      "static_rows_as_pct_of_true_vegetation_rows": 5.222,
+      "exact": {
+        "recall_pct": 92.02,
+        "false_drop_pct": 0.303,
+        "static_rows_removed": 68285,
+        "static_rows_total": 74209,
+        "veg_rows_falsely_removed": 4308,
+        "veg_rows_total": 1421042,
+        "recall_by_type_pct": {
+          "2": 94.7,
+          "3": 14.5
+        },
+        "net_monthly_bias_pct": {
+          "median": -0.062,
+          "min": -2.423,
+          "max": 2.89
+        }
+      },
+      "neighbourhood_3x3": {
+        "recall_pct": 93.43,
+        "false_drop_pct": 0.4,
+        "static_rows_removed": 69331,
+        "static_rows_total": 74209,
+        "veg_rows_falsely_removed": 5683,
+        "veg_rows_total": 1421042,
+        "recall_by_type_pct": {
+          "2": 96.0,
+          "3": 17.6
+        },
+        "net_monthly_bias_pct": {
+          "median": -0.456,
+          "min": -3.159,
+          "max": 1.651
+        }
+      }
+    },
+    "zambia": {
+      "mask_source_rows": 6209681,
+      "mask_source_static_rows": 11995,
+      "mask_locations_exact": 2203,
+      "mask_locations_3x3": 10355,
+      "test_rows": 5968755,
+      "test_months": 84,
+      "test_static_share_pct": 0.19,
+      "static_rows_as_pct_of_true_vegetation_rows": 0.19,
+      "exact": {
+        "recall_pct": 81.67,
+        "false_drop_pct": 0.027,
+        "static_rows_removed": 9243,
+        "static_rows_total": 11318,
+        "veg_rows_falsely_removed": 1604,
+        "veg_rows_total": 5957437,
+        "recall_by_type_pct": {
+          "2": 93.2,
+          "3": 32.3
+        },
+        "net_monthly_bias_pct": {
+          "median": 0.009,
+          "min": -5.0,
+          "max": 6.349
+        }
+      },
+      "neighbourhood_3x3": {
+        "recall_pct": 87.8,
+        "false_drop_pct": 0.202,
+        "static_rows_removed": 9937,
+        "static_rows_total": 11318,
+        "veg_rows_falsely_removed": 12043,
+        "veg_rows_total": 5957437,
+        "recall_by_type_pct": {
+          "2": 94.0,
+          "3": 61.4
+        },
+        "net_monthly_bias_pct": {
+          "median": -0.325,
+          "min": -15.038,
+          "max": 1.887
+        }
+      }
+    }
+  },
+  "design": {
+    "mask": "VIIRS_SNPP_SP 2012-2018 yearly country files, rows with type != 0, matched at 0.005 degrees",
+    "test": "VIIRS_NOAA20_SP 2019-2025 yearly country files, treated as if they had no type column",
+    "recall": "share of type != 0 rows the mask removes",
+    "false_drop": "share of type 0 (vegetation fire) rows the mask removes",
+    "net_monthly_bias": "(kept rows that are not low confidence - true type 0 rows that are not low confidence) / true, per month"
+  },
+  "status": "complete",
+  "validated_regions": [
+    "western_na",
+    "zambia"
+  ]
+}
