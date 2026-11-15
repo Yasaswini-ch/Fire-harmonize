@@ -9,7 +9,8 @@ import { cellLabel } from "../lib/format.js";
 vi.mock("recharts", () => {
   const Stub = () => null;
   return {
-    Bar: Stub, BarChart: Stub, CartesianGrid: Stub, Cell: Stub, ReferenceLine: Stub, Tooltip: Stub, XAxis: Stub, YAxis: Stub, Legend: Stub,
+    Area: Stub, Bar: Stub, BarChart: Stub, CartesianGrid: Stub, Cell: Stub, ComposedChart: Stub, ErrorBar: Stub, Legend: Stub, Line: Stub,
+    ReferenceLine: Stub, Tooltip: Stub, XAxis: Stub, YAxis: Stub,
     ResponsiveContainer: ({ children }) => children ?? null,
   };
 });

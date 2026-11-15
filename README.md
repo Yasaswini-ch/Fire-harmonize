@@ -44,6 +44,13 @@ A region is one entry in `config/regions.json`; the app works for any area drawn
 - **Headline numbers**: peak month and year, estimated share, and *Now vs normal*, the latest month against the median of the same
   calendar month over the baseline years.
 - **Fire season, seasonal profile and annual anomalies** against a baseline the user can change.
+- **Is the fire season shifting?** The start, middle and end of each year's burning season (the days by which 10, 50 and 90 percent
+  of its detections had happened), with a trend. Estimated years are drawn with their ranges but left out of the trend, because the
+  MODIS model can move detections between months and fake a shift across 2012; the trend range includes year-to-year variation, and
+  most areas show "no clear shift" over the 13 observed years.
+- **How sure is the ranking?** The busiest month and year, and the five highest months, are re-ranked on simulated versions of the
+  series (2,000 draws for each of two assumptions about how the errors of estimated months relate, with the estimated months drawn
+  from curves through their stated ranges). For Zambia: "2012 is the busiest year in 65% to 76% of draws; next is 2008 (10% to 24%)".
 - **Map and 3D globe** of detections by month.
 - **Compare areas tab**: two areas of the same region side by side: totals with ranges, fire seasons, latest month against normal,
   seasonal shape, annual anomalies, and whether the two areas tend to burn in the same years.

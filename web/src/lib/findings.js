@@ -3,6 +3,7 @@
 // meta.json (through accuracyOf); nothing is typed in. The reading guide explains the graphs and contains no data.
 import { TARGET_PCT } from "./accuracy.js";
 import { fmt, fmtPct, MONTH_NAMES, monthLabel } from "./format.js";
+import { leaderText, RANKING_NOTE, topFiveText } from "./ranking.js";
 import { topMonths, topYears } from "./stats.js";
 
 export const READING_GUIDE = [
@@ -19,8 +20,9 @@ export const READING_GUIDE = [
 ];
 
 // rows: the monthly series in range. comparison: currentMonthComparison output or null. season: fireSeasonWindow output or null.
-// anomaly: anomalyZ output or null. accuracy: accuracyOf output or null.
-export function buildFindings({ rows, comparison, season, anomaly, accuracy }) {
+// anomaly: anomalyZ output or null. accuracy: accuracyOf output or null. ranking: rankingOf output or null; when it has
+// uncertainty, the busiest month and year say how often they come out on top in simulated versions of the series.
+export function buildFindings({ rows, comparison, season, anomaly, accuracy, ranking = null }) {
   const n = rows.length;
   const est = rows.filter((r) => r.source === "modis_estimated").length;
   const prov = rows.filter((r) => r.provisional).length;
@@ -56,9 +58,17 @@ export function buildFindings({ rows, comparison, season, anomaly, accuracy }) {
     });
   }
   const pm = topMonths(rows, 1)[0];
-  if (pm) shows.push({ label: "Busiest month", text: `${monthLabel(pm.month)}, with ${fmt(pm.count)} detections.` });
+  const chance = ranking?.uncertain ? ranking : null;
+  const join = (...parts) => parts.filter(Boolean).join(" ");
+  if (pm) {
+    shows.push({ label: "Busiest month", text: join(`${monthLabel(pm.month)}, with ${fmt(pm.count)} detections.`, chance && leaderText(chance.month, "month", (c) => monthLabel(c.month))) });
+  }
   const py = topYears(rows, 1)[0];
-  if (py) shows.push({ label: "Busiest year", text: `${py.year}, with ${fmt(py.total)} detections (complete years only).` });
+  if (py) {
+    shows.push({ label: "Busiest year", text: join(`${py.year}, with ${fmt(py.total)} detections (complete years only).`, chance && leaderText(chance.year, "year", (c) => String(c.year))) });
+  }
+  const five = chance && topFiveText(chance.topFive);
+  if (five) shows.push({ label: "Five highest months", text: five });
   if (season) {
     const first = MONTH_NAMES[season.months[0] - 1];
     const last = MONTH_NAMES[season.months[season.length - 1] - 1];
@@ -76,5 +86,5 @@ export function buildFindings({ rows, comparison, season, anomaly, accuracy }) {
         : `Beyond 2 standard deviations of the baseline: ${flagged.map((y) => `${y.year} (${y.z > 0 ? "+" : ""}${y.z.toFixed(1)})`).join(", ")}.`,
     });
   }
-  return { did, shows };
+  return { did, shows, rankingNote: chance ? RANKING_NOTE : null };
 }

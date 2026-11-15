@@ -5,9 +5,12 @@ import CurrentMonthCard from "./CurrentMonthCard.jsx";
 import FireSeasonCard from "./FireSeasonCard.jsx";
 import ResultsPage from "./ResultsPage.jsx";
 import SeasonalProfile from "./SeasonalProfile.jsx";
+import SeasonShift from "./SeasonShift.jsx";
 import StatCard from "./StatCard.jsx";
 import { accuracyOf } from "../lib/accuracy.js";
 import { falseJumpOf } from "../lib/falseJump.js";
+import { rankingOf } from "../lib/ranking.js";
+import { seasonShiftOf } from "../lib/seasonShift.js";
 import {
   annualTotals, anomalyZ, baselineYearCount, currentMonthComparison, fireSeasonWindow, monthlyMedianBaseline, yearOf,
 } from "../lib/stats.js";
@@ -21,6 +24,10 @@ import {
 export default function Analytics({ fullSeries, rangeRows, context, left = null, more = null, meta = null, regionId = null, page = "workbench", onPage = () => {}, onTour = null }) {
   const completeYears = useMemo(() => annualTotals(fullSeries).map((t) => t.year), [fullSeries]);
   const [pick, setPick] = useState(null); // { start, end } once the user changes a dropdown
+  // Both re-run the series with the estimated months drawn from their ranges (see lib/uncertainty.js); they follow the selected dates.
+  // Each is worked out only on the page that shows it, because the draws take a moment.
+  const ranking = useMemo(() => (page === "results" ? rankingOf(rangeRows) : null), [rangeRows, page]);
+  const shift = useMemo(() => (page === "results" ? null : seasonShiftOf(rangeRows)), [rangeRows, page]);
 
   const total = rangeRows.reduce((a, r) => a + r.count, 0);
   if (total === 0) {
@@ -49,7 +56,7 @@ export default function Analytics({ fullSeries, rangeRows, context, left = null,
   if (page === "results") {
     return (
       <ResultsPage regionId={regionId} regionName={context.regionName} rows={rangeRows} comparison={comparison} season={season} anomaly={anomaly}
-        accuracy={meta && regionId ? accuracyOf(meta, regionId) : null} jump={meta && regionId ? falseJumpOf(meta, regionId) : null}
+        accuracy={meta && regionId ? accuracyOf(meta, regionId) : null} jump={meta && regionId ? falseJumpOf(meta, regionId) : null} ranking={ranking}
         onTour={onTour} onBack={() => onPage("workbench")} />
     );
   }
@@ -112,6 +119,8 @@ export default function Analytics({ fullSeries, rangeRows, context, left = null,
           <AnomalyChart anomaly={anomaly} context={context} baselineText={`${bStart} to ${bEnd}`} />
         )
       )}
+
+      {shift && <SeasonShift shift={shift} />}
 
       {more && more({ comparison })}
     </>
