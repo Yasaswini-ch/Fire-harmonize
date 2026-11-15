@@ -1,3 +1,16 @@
+<p align="center">
+  <img src="docs/banner.svg" alt="Fire Harmonize: one consistent MODIS and VIIRS fire record" width="100%">
+</p>
+
+<p align="center">
+  <img alt="NASA Space Apps Challenge 2026" src="https://img.shields.io/badge/NASA%20Space%20Apps-2026-0b3d91?style=flat-square">
+  <img alt="Data: NASA FIRMS" src="https://img.shields.io/badge/data-NASA%20FIRMS-fc3d21?style=flat-square">
+  <img alt="Python 3.11" src="https://img.shields.io/badge/python-3.11-3776ab?style=flat-square&logo=python&logoColor=white">
+  <img alt="React" src="https://img.shields.io/badge/React-Vite-61dafb?style=flat-square&logo=react&logoColor=black">
+  <img alt="Static site, no backend" src="https://img.shields.io/badge/site-static%20%C2%B7%20no%20backend-555555?style=flat-square">
+  <img alt="Tests: 242 web, 42 pipeline" src="https://img.shields.io/badge/tests-242%20web%20%C2%B7%2042%20pipeline-2ea44f?style=flat-square">
+</p>
+
 # Fire Harmonize
 
 **A burning-activity calendar built on a single, consistent MODIS and VIIRS fire record.**

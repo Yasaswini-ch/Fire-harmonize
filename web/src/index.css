@@ -284,3 +284,12 @@ details.fold[open] > summary { margin-bottom: 10px; }
 .compare-table tbody th { text-align: left; font-weight: 600; white-space: nowrap; }
 @media (max-width: 900px) { .compare-pick { grid-template-columns: 1fr; } }
 .compare-table th, .compare-table td { text-align: left; }
+
+/* Area and dates: the narrow left column holds the four buttons as two tidy rows of two */
+.col-left .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.col-left .btn-row button { width: 100%; padding: 0 12px; white-space: nowrap; }
+.col-left .btn-row .copy-status { grid-column: 1 / -1; margin: 0; min-height: 0; }
+.col-left .btn-row .copy-status:empty { display: none; }
+.fields.two > label, .fields.two input { min-width: 0; }
+.fields.two input { width: 100%; box-sizing: border-box; padding-left: 10px; padding-right: 10px; }
+.daterange .fields.two { grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }

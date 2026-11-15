@@ -15,8 +15,8 @@ export default function CopyLinkButton() {
   };
   return (
     <>
-      <button type="button" className="ghost" onClick={copy}>Copy link to this view</button>
-      <span className="hint" role="status">{msg}</span>
+      <button type="button" className="ghost" onClick={copy} title="Copy a link that reopens this region, area and dates">Copy link</button>
+      <span className="hint copy-status" role="status">{msg}</span>
     </>
   );
 }
