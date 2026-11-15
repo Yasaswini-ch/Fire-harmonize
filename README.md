@@ -162,8 +162,7 @@ directory to `web`, the build command to `npm run build` and the output director
 - **Fire data:** NASA FIRMS (Fire Information for Resource Management System), part of NASA LANCE and ESDIS. MODIS Collection 6.1
   and VIIRS 375 m active fire.
 - **Borders:** Natural Earth, via the `world-atlas` package.
-- **Opening-page imagery:** NASA Blue Marble and NASA SVS Deep Star Map, taken from the MIT-licensed repository
-  `the-aris-club/flare-chronos`, another entry for the same challenge. The layout and code here are original.
+- **Opening-page imagery:** NASA Blue Marble and NASA SVS Deep Star Map
 - **Libraries:** React, Vite, Leaflet, Recharts, d3-scale-chromatic, three.js, topojson-client, pandas, NumPy, ReportLab.
 
 ## Use of AI tools
